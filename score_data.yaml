@@ -1,0 +1,27 @@
+# YOLOv5 🚀 by Ultralytics      GPL-3.0 license
+# COCO 2017 dataset http://cocodataset.org by Microsoft
+# Example usage: python train.py --data coco.yaml
+# parent
+# ├── yolov5
+# └── datasets
+#     └── coco  ← downloads here (20.1 GB)
+
+
+# Train/val/test sets as 1) dir: path/to/imgs      2) file: path/to/imgs.txt      or 3) list: [path/to/imgs1      path/to/imgs2      ..]
+train: /root/YOLOv8-main/rode_face_train/images # train images
+val: /root/YOLOv8-main/rode_face_val/images # val images
+test: /root/YOLOv8-main/rode_face_test/images # test images (optional)
+# Classes
+names:
+  0: BL   
+  1: CL      
+  2: DM      
+  3: JB     
+  4: LA     
+  5: PC   
+  6:  RA     
+  7: SA   
+  8: SL      
+  9: SLA    #如果是yolo格式的需要修改这个列表          
+  10: SRA   
+
