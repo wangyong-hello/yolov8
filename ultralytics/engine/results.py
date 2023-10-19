@@ -321,12 +321,16 @@ class Results(SimpleClass):
         if self.probs is not None:
             LOGGER.warning('WARNING ⚠️ Classify task do not support `save_crop`.')
             return
-        # for d in self.boxes:
-        if self.boxes:
-            save_one_box(d.xyxy=None,
-                         self.orig_img.copy(),
-                         file=Path(save_dir) / self.names[int(d.cls)] / f'{Path(file_name).stem}.jpg',
-                         BGR=True)
+        for d in self.boxes:
+            save_one_box(d.xyxy,
+                            self.orig_img.copy(),
+                            file=Path(save_dir) / self.names[int(d.cls)] / f'{Path(file_name).stem}.jpg',
+                            BGR=False)
+        # if self.boxes:
+        #     save_one_box(
+        #                  self.orig_img.copy(),
+        #                  file=Path(save_dir) / self.names[int(d.cls)] / f'{Path(file_name).stem}.jpg',
+        #                  BGR=True)
 
     def tojson(self, normalize=False):
         """Convert the object to JSON format."""

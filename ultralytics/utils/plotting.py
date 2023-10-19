@@ -320,18 +320,37 @@ def save_one_box(xyxy, im, file=Path('im.jpg'), gain=1.02, pad=10, square=False,
     Save image crop as {file} with crop size multiple {gain} and {pad} pixels. Save and/or return crop.
 
     This function takes a bounding box and an image, and then saves a cropped portion of the image according
-    to the bounding box. Optionally, the crop can be squared, and the function allows for gain and padding
+     if save:
+            file.parent.mkdir(parents=True, exist_ok=True)  # make directory
+        f = str(increment_path(file).with_suffix('.jpg'))
+        # cv2.imwrite(f, crop)  # save BGR, https://github.com/ultralytics/yolov5/issues/7007 chroma subsampling issue
+        # Image.fromarray(crop[..., ::-1]).save(f, quality=95, subsampling=0)  # save RGB
+        Image.fromarray(im).save(f, quality=95, subsampling=0)  # save RGB
+    return crop
+  to the bounding box. Optionally, the crop can be squared, and the function allows for gain and padding
     adjustments to the bounding box.
 
     Args:
-        xyxy (torch.Tensor or list): A tensor or list representing the bounding box in xyxy format.
+    if save:
+        file.parent.mkdir(parents=True, exist_ok=True)  # make directory
+        f = str(increment_path(file).with_suffix('.jpg'))
+        # cv2.imwrite(f, crop)  # save BGR, https://github.com/ultralytics/yolov5/issues/7007 chroma subsampling issue
+        # Image.fromarray(crop[..., ::-1]).save(f, quality=95, subsampling=0)  # save RGB
+        Image.fromarray(im).save(f, quality=95, subsampling=0)  # save RGB
+    return crop
+       xyxy (torch.Tensor or list): A tensor or list representing the bounding box in xyxy format.
         im (numpy.ndarray): The input image.
         file (Path, optional): The path where the cropped image will be saved. Defaults to 'im.jpg'.
         gain (float, optional): A multiplicative factor to increase the size of the bounding box. Defaults to 1.02.
         pad (int, optional): The number of pixels to add to the width and height of the bounding box. Defaults to 10.
         square (bool, optional): If True, the bounding box will be transformed into a square. Defaults to False.
-        BGR (bool, optional): If True, the image will be saved in BGR format, otherwise in RGB. Defaults to False.
-        save (bool, optional): If True, the cropped image will be saved to disk. Defaults to True.
+      if save:
+            file.parent.mkdir(parents=True, exist_ok=True)  # make directory
+        f = str(increment_path(file).with_suffix('.jpg'))
+        # cv2.imwrite(f, crop)  # save BGR, https://github.com/ultralytics/yolov5/issues/7007 chroma subsampling issue
+        # Image.fromarray(crop[..., ::-1]).save(f, quality=95, subsampling=0)  # save RGB
+        Image.fromarray(im).save(f, quality=95, subsampling=0)  # save RGB
+    return crop
 
     Returns:
         (numpy.ndarray): The cropped image.
@@ -361,6 +380,8 @@ def save_one_box(xyxy, im, file=Path('im.jpg'), gain=1.02, pad=10, square=False,
         f = str(increment_path(file).with_suffix('.jpg'))
         # cv2.imwrite(f, crop)  # save BGR, https://github.com/ultralytics/yolov5/issues/7007 chroma subsampling issue
         # Image.fromarray(crop[..., ::-1]).save(f, quality=95, subsampling=0)  # save RGB
+        
+        im = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
         Image.fromarray(im).save(f, quality=95, subsampling=0)  # save RGB
     return crop
 
