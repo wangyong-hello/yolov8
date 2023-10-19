@@ -5,7 +5,7 @@ from ultralytics import YOLO
 # model.train(data='coco128.yaml', epochs=3)  # train the model
 # model('https://ultralytics.com/images/bus.jpg')  # predict on an image
 model = YOLO('/home/xnwu/wangyong/yolov8/runs/detect/train7/weights/best.pt')
-model.predict('/home/xnwu/wangyong/rode_face_test/images',save=True,save_crop=True,vid_stride=10)
+model.predict('/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230517/no_elevated/crosswalk',save=True,save_crop=True,vid_stride=10)
 
 
     ####训练出来看：效果？测试用数据增强了？ 后处理？ 是半精度运行？输入多大？网络多大？ 模型某些操作(5维)硬件支持？
