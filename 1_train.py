@@ -11,7 +11,8 @@ from ultralytics import YOLO
         结果: Speed: 33.2ms preprocess, 660.5ms inference, 0.8ms postprocess per image at shape (1, 3, 384, 640)
             Speed: 12.2ms preprocess, 59.6ms inference, 0.7ms postprocess per image at shape (1, 3, 192, 320)
             Speed: 12.6ms preprocess, 46.6ms inference, 0.6ms postprocess per image at shape (1, 3, 160, 256)
-            
+
+        数据集：公司，见标注文档：
             
 ''' 
 ### 调节默认参数在 "/root/YOLOv8-main/ultralytics/yolo/configs/default.yaml"中
