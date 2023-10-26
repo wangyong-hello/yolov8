@@ -1,0 +1,4 @@
+git add filename                        
+git commit -m "注释"
+git remote add origin https://github.com/wangyong-hello/yolov8.git
+git push origin master
