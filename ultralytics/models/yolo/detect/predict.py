@@ -4,6 +4,7 @@ from ultralytics.engine.predictor import BasePredictor
 from ultralytics.engine.results import Results
 from ultralytics.utils import ops
 
+import shutil,torch
 
 class DetectionPredictor(BasePredictor):
     """
@@ -37,5 +38,13 @@ class DetectionPredictor(BasePredictor):
             orig_img = orig_imgs[i]
             pred[:, :4] = ops.scale_boxes(img.shape[2:], pred[:, :4], orig_img.shape)
             img_path = self.batch[0][i]
-            results.append(Results(orig_img, path=img_path, names=self.model.names, boxes=pred))
+            results.append(Results(orig_img, path=img_path, names=self.model.names, boxes=pred))  
+            #tag:修改 添加下面四行代码
+            # if results[0].boxes.shape[0] == 0 :
+            #     shutil.move(img_path,dst='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230428/20230428_for_det_other' )
+            #     pass
+            # if torch.any(results[0].boxes.cls==3.) and  results[0].boxes.shape[0]==1:  #  判断一个数是否在PyTorch张量中,torch.any(tensor == number)
+            # #     shutil.move(img_path,dst= )    
+            #     shutil.move(img_path,dst='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230428/202304_for_det_nolyPC' )
+            #tag
         return results

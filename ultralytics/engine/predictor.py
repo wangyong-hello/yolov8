@@ -320,7 +320,7 @@ class BasePredictor:
         self.args.half = self.model.fp16  # update half
         self.model.eval()
 
-    def show(self, p):
+    def show(self, p):           #mark:最后show出来的可视化结果
         """Display an image in a window using OpenCV imshow()."""
         im0 = self.plotted_img
         if platform.system() == 'Linux' and p not in self.windows:
@@ -328,7 +328,13 @@ class BasePredictor:
             cv2.namedWindow(str(p), cv2.WINDOW_NORMAL | cv2.WINDOW_KEEPRATIO)  # allow window resize (Linux)
             cv2.resizeWindow(str(p), im0.shape[1], im0.shape[0])
         cv2.imshow(str(p), im0)
-        cv2.waitKey(500 if self.batch[3].startswith('image') else 1)  # 1 millisecond
+        # cv2.waitKey(500 if self.batch[3].startswith('image') else 1)  # 1 millisecond
+        #tag: 修改添加
+        k = cv2.waitKey(0) & 0xFF
+        if k == 27: # wait for ESC key to exit
+            cv2.destroyAllWindows()
+        #tag:
+        #
 
     def save_preds(self, vid_cap, idx, save_path):
         """Save video predictions as mp4 at specified path."""

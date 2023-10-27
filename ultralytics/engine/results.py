@@ -239,7 +239,7 @@ class Results(SimpleClass):
             idx = pred_boxes.cls if pred_boxes else range(len(pred_masks))
             annotator.masks(pred_masks.data, colors=[colors(x, True) for x in idx], im_gpu=im_gpu)
 
-        # Plot Detect results
+        # Plot Detect results    #mark:绘制并可视化？
         if pred_boxes and show_boxes:
             for d in reversed(pred_boxes):
                 c, conf, id = int(d.cls), float(d.conf) if conf else None, None if d.id is None else int(d.id.item())
@@ -326,11 +326,7 @@ class Results(SimpleClass):
                             self.orig_img.copy(),
                             file=Path(save_dir) / self.names[int(d.cls)] / f'{Path(file_name).stem}.jpg',
                             BGR=False)
-        # if self.boxes:
-        #     save_one_box(
-        #                  self.orig_img.copy(),
-        #                  file=Path(save_dir) / self.names[int(d.cls)] / f'{Path(file_name).stem}.jpg',
-        #                  BGR=True)
+       
 
     def tojson(self, normalize=False):
         """Convert the object to JSON format."""
