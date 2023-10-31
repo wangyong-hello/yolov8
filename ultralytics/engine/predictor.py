@@ -328,11 +328,12 @@ class BasePredictor:
             cv2.namedWindow(str(p), cv2.WINDOW_NORMAL | cv2.WINDOW_KEEPRATIO)  # allow window resize (Linux)
             cv2.resizeWindow(str(p), im0.shape[1], im0.shape[0])
         cv2.imshow(str(p), im0)
-        # cv2.waitKey(500 if self.batch[3].startswith('image') else 1)  # 1 millisecond
+        cv2.waitKey(500 if self.batch[3].startswith('image') else 1)  # 1 millisecond
+
         #tag: 修改添加
-        k = cv2.waitKey(0) & 0xFF
-        if k == 27: # wait for ESC key to exit
-            cv2.destroyAllWindows()
+            # k = cv2.waitKey(0) & 0xFF
+            # if k == 27: # wait for ESC key to exit
+            #     cv2.destroyAllWindows()
         #tag:
         #
 
@@ -340,7 +341,7 @@ class BasePredictor:
         """Save video predictions as mp4 at specified path."""
         im0 = self.plotted_img
         # Save imgs
-        if self.dataset.mode == 'image'or 1:
+        if self.dataset.mode == 'image':
             cv2.imwrite(save_path, im0)
         else:  # 'video' or 'stream'
             if self.vid_path[idx] != save_path:  # new video

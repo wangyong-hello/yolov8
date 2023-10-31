@@ -315,7 +315,7 @@ def plot_labels(boxes, cls, names=(), save_dir=Path(''), on_plot=None):
         on_plot(fname)
 
 
-def save_one_box(xyxy, im, file=Path('im.jpg'), gain=1.02, pad=10, square=False, BGR=False, save=True):  #tag:
+def save_one_box(xyxy, im, file=Path('im.jpg'), gain=1.02, pad=10, square=False, BGR=False, save=True):  
     """
     Save image crop as {file} with crop size multiple {gain} and {pad} pixels. Save and/or return crop.
 
@@ -374,7 +374,10 @@ def save_one_box(xyxy, im, file=Path('im.jpg'), gain=1.02, pad=10, square=False,
     xyxy = ops.xywh2xyxy(b).long()
     ops.clip_boxes(xyxy, im.shape)
     # crop = im[int(xyxy[0, 1]):int(xyxy[0, 3]), int(xyxy[0, 0]):int(xyxy[0, 2]), ::(1 if BGR else -1)]
-    crop = im
+    #tag: 修改不裁剪直接保存图片
+    crop = im  
+    #tag:
+    
     if save:
         file.parent.mkdir(parents=True, exist_ok=True)  # make directory
         f = str(increment_path(file).with_suffix('.jpg'))
