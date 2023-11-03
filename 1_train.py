@@ -22,7 +22,8 @@ from ultralytics import YOLO
 model = YOLO('yolov8m.yaml')  # build a new model from YAML   
 # model = YOLO('runs/detect/train_on_dataset1/weights/best.pt')  # load a pretrained model (recommended for training)#'
 # model = model.load('/root/YOLOv8-main/ultralytics/yolo/v8/detect/yolov8n.pt')
-model.train(data='score_data.yaml', epochs=100, imgsz=640,batch=16)
+model = model.load('/home/xnwu/wangyong/yolov8/official_weights/yolov8m.pt')
+model.train(data='score_data.yaml', epochs=100, imgsz=640,batch=8)
 
 
 
