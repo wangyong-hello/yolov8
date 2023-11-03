@@ -52,7 +52,7 @@ dnn: False  # (bool) use OpenCV DNN for ONNX inference
 plots: True  # (bool) save plots during train/val
 
 # Prediction settings --------------------------------------------------------------------------------------------------
-source: 0 # (str, optional) source directory for images or videos
+source: "https://ultralytics.com/images/bus.jpg" # (str, optional) source directory for images or videos
 show: False  # (bool) show results if possible
 save_txt: True  # (bool) save results as .txt file
 save_conf: False  # (bool) save results with confidence scores

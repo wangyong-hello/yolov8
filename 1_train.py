@@ -19,10 +19,19 @@ from ultralytics import YOLO
 ### 训练 yolo task=detect mode=train model=yolov8s.yaml  data=score_data.yaml epochs=100 batch=64 imgsz=640 pretrained=False optimizer=SGD 
 ### 预测 yolo task=detect mode=predict model=/root/YOLOv8-main/runs/detect/train9/weights/best.pt conf=0.25 source=/root/YOLOv8-main/rode_face_test/images    
 # Load a model
-model = YOLO('yolov8n.yaml')  # build a new model from YAML   
-model = YOLO('runs/detect/train_on_dataset1/weights/best.pt')  # load a pretrained model (recommended for training)
+model = YOLO('yolov8m.yaml')  # build a new model from YAML   
+# model = YOLO('runs/detect/train_on_dataset1/weights/best.pt')  # load a pretrained model (recommended for training)#'
 # model = model.load('/root/YOLOv8-main/ultralytics/yolo/v8/detect/yolov8n.pt')
-model.train(data='score_data.yaml', epochs=100, imgsz=640,source=0)
+model.train(data='score_data.yaml', epochs=100, imgsz=640,batch=16)
+
+
+
+
+'''
+    1.报错 FileNotFoundError: /home/xnwu/wangyong/yolov8/ultralytics/assets/bus.jpg does not exist？
+        放一张假图片bus.jpg进去。
+
+'''
 '''
     下列是可传入train参数：
 
