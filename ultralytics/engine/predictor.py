@@ -330,12 +330,11 @@ class BasePredictor:
         cv2.imshow(str(p), im0)
         cv2.waitKey(500 if self.batch[3].startswith('image') else 1)  # 1 millisecond
 
-        #tag: 修改添加
+        #tag: 修改添加show的暂停
             # k = cv2.waitKey(0) & 0xFF
             # if k == 27: # wait for ESC key to exit
             #     cv2.destroyAllWindows()
-        #tag:
-        #
+            
 
     def save_preds(self, vid_cap, idx, save_path):
         """Save video predictions as mp4 at specified path."""

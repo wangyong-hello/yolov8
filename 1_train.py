@@ -2,6 +2,7 @@
 # ###预打标只看效果 
 from ultralytics import YOLO
 
+# from tensorboardX import summary
  
 # Ultralytics YOLO 🚀, GPL-3.0 license
 '''
@@ -19,11 +20,12 @@ from ultralytics import YOLO
 ### 训练 yolo task=detect mode=train model=yolov8s.yaml  data=score_data.yaml epochs=100 batch=64 imgsz=640 pretrained=False optimizer=SGD 
 ### 预测 yolo task=detect mode=predict model=/root/YOLOv8-main/runs/detect/train9/weights/best.pt conf=0.25 source=/root/YOLOv8-main/rode_face_test/images    
 # Load a model
-model = YOLO('yolov8m.yaml')  # build a new model from YAML   
+# model = YOLO('/home/xnwu/wangyong/yolov8/ultralytics/cfg/models/v8/yolov8_samll_obj.yaml')  # build a new model from YAML   
+model = YOLO('yolov8n.yaml')  # build a new model from YAML   
 # model = YOLO('runs/detect/train_on_dataset1/weights/best.pt')  # load a pretrained model (recommended for training)#'
-# model = model.load('/root/YOLOv8-main/ultralytics/yolo/v8/detect/yolov8n.pt')
-model = model.load('/home/xnwu/wangyong/yolov8/official_weights/yolov8m.pt')
-model.train(data='score_data.yaml', epochs=100, imgsz=640,batch=8)
+model = model.load('/home/xnwu/wangyong/yolov8/runs/detect/train_on_dataset1/weights/best.pt')
+# model = model.load('/home/xnwu/wangyong/yolov8/official_weights/yolov8m.pt')
+model.train(data='score_data.yaml', epochs=100, imgsz=640,batch=16)
 
 
 

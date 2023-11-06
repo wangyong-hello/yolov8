@@ -2,7 +2,10 @@
 
 from ultralytics.engine.model import Model
 from ultralytics.models import yolo  # noqa
+#tag:bifpn
 from ultralytics.nn.tasks import ClassificationModel, DetectionModel, PoseModel, SegmentationModel
+# from ultralytics.nn.tasks_bifpn import ClassificationModel, DetectionModel, PoseModel, SegmentationModel
+
 
 
 class YOLO(Model):
