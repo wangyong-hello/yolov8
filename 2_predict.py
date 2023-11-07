@@ -6,8 +6,9 @@ from ultralytics import YOLO
 # model.train(data='coco128.yaml', epochs=3)  # train the model
 # model('https://ultralytics.com/images/bus.jpg')  # predict on an image
 
-model = YOLO('/home/xnwu/wangyong/yolov8/runs/detect/yolov8m_on_dataset2/weights/best.pt')
-model.predict('/home/xnwu/wangyong/20230718153307817_LGWEF6A75MH250240_0_0_0.mp4',imgsz=640,save=True,save_crop=True,device='cpu',vid_stride=10,show=True,conf=0.3)
+model = YOLO('/home/xnwu/wangyong/yolov8/runs/detect/train_on_VPGNet-DB-5ch/weights/best.pt')
+# model.predict('/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230428/20230428_for_det/1',imgsz=640,save=True,save_crop=True,device='cpu',vid_stride=10,show=True,conf=0.25)
+model.predict('/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230428/20230428_for_det/1',imgsz=640,save=True,save_crop=True,device='cuda',vid_stride=10,show=True)
 # /home/xnwu/vims/数据采集/DVR/DVR_剪辑后回传/LOOP/no_elevated/crossroad/20221124142439077_LGWEF6A75MH250240_0_0_0.mp4
 #文件夹下的图片：/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230428/20230428_for_det/1
 # /media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230522/no_elevated/crosswalk

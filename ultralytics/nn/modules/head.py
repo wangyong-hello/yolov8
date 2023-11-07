@@ -66,8 +66,9 @@ class Detect(nn.Module):
             img_w = shape[3] * self.stride[0]
             img_size = torch.tensor([img_w, img_h, img_w, img_h], device=dbox.device).reshape(1, 4, 1)
             dbox /= img_size
-        
+
         y = torch.cat((dbox, cls.sigmoid()), 1)
+        return y if self.export else (y, x)
 
         #tag:杨帆
         # dbox = dbox.permute(0,2,1)

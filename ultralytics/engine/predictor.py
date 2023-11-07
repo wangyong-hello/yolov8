@@ -250,15 +250,15 @@ class BasePredictor:
             self.batch = batch
             path, im0s, vid_cap, s = batch
 
-            # Preprocess
+            # mark:Preprocess
             with profilers[0]:
                 im = self.preprocess(im0s)
 
-            # Inference
+            # mark:Inference
             with profilers[1]:
                 preds = self.inference(im, *args, **kwargs)
 
-            # Postprocess
+            # mark:Postprocess
             with profilers[2]:
                 self.results = self.postprocess(preds, im, im0s)
             self.run_callbacks('on_predict_postprocess_end')
