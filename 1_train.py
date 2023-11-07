@@ -23,7 +23,7 @@ from ultralytics import YOLO
 # model = YOLO('/home/xnwu/wangyong/yolov8/ultralytics/cfg/models/v8/yolov8_samll_obj.yaml')  # build a new model from YAML   
 model = YOLO('yolov8n.yaml')  # build a new model from YAML   
 # model = YOLO('runs/detect/train_on_dataset1/weights/best.pt')  # load a pretrained model (recommended for training)#'
-model = model.load('/home/xnwu/wangyong/yolov8/runs/detect/train_on_dataset1/weights/best.pt')
+model = model.load('/home/xnwu/wangyong/yolov8/runs/detect/train_on_dataset2/weights/best.pt')
 # model = model.load('/home/xnwu/wangyong/yolov8/official_weights/yolov8m.pt')
 model.train(data='score_data.yaml', epochs=100, imgsz=640,batch=16)
 

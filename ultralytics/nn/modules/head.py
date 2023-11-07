@@ -67,15 +67,15 @@ class Detect(nn.Module):
             img_size = torch.tensor([img_w, img_h, img_w, img_h], device=dbox.device).reshape(1, 4, 1)
             dbox /= img_size
 
-        y = torch.cat((dbox, cls.sigmoid()), 1)
-        return y if self.export else (y, x)
+        # y = torch.cat((dbox, cls.sigmoid()), 1)
+        # return y if self.export else (y, x)
 
         #tag:杨帆
-        # dbox = dbox.permute(0,2,1)
-        # cls = cls.sigmoid().permute(0,2,1)
-        # y = torch.cat((dbox,cls),-1).permute(0,2,1)
-        # #y = torch.cat((dbox, cls.sigmoid()), 1)
-        # return y if self.export else (y, x)
+        dbox = dbox.permute(0,2,1)
+        cls = cls.sigmoid().permute(0,2,1)
+        y = torch.cat((dbox,cls),-1).permute(0,2,1)
+        #y = torch.cat((dbox, cls.sigmoid()), 1)
+        return y if self.export else (y, x)
 
     def bias_init(self):
         """Initialize Detect() biases, WARNING: requires stride availability."""

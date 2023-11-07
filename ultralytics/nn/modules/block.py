@@ -327,7 +327,7 @@ class BottleneckCSP(nn.Module):
         self.cv4 = Conv(2 * c_, c2, 1, 1)
         self.bn = nn.BatchNorm2d(2 * c_)  # applied to cat(cv2, cv3)
         # self.act = nn.SiLU()  
-        # self.act = nn.ReLU()  #tag:杨帆
+        self.act = nn.ReLU()  #tag:杨帆
         self.m = nn.Sequential(*(Bottleneck(c_, c_, shortcut, g, e=1.0) for _ in range(n)))
 
     def forward(self, x):
