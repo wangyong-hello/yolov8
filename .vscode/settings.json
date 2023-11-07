@@ -85,10 +85,12 @@
         "*.yml*" :true,       
         "*.cff*" :true,       
         "*.in*" :true,       
+        "**/docker" :true,       
     },  
      // 用来忽略搜索的文件夹
     "search.exclude":{
        "*.md":true  ,
+       "**/docker" :true,
     },
     // 创建和更新代码的头部信息作者
     "fileheader.Author": "WangYong",
