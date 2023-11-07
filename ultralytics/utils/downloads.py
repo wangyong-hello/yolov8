@@ -337,7 +337,7 @@ def get_github_assets(repo='ultralytics/assets', version='latest', retry=False):
         LOGGER.warning(f'⚠️ GitHub assets check failure for {url}: {r.status_code} {r.reason}')
         return '', []
     data = r.json()
-    return data['tag_name'], [x['name'] for x in data['assets']]  # tag
+    return data['tag_name'], [x['name'] for x in data['assets']]  
 
 
 def attempt_download_asset(file, repo='ultralytics/assets', release='v0.0.0'):
