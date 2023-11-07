@@ -1,0 +1,180 @@
+{
+    //默认主题是现代深色，我比较喜欢
+    "editor.fontSize": 16,
+    "editor.tokenColorCustomizations": {
+        "keywords": "#416ed8", // 关键字
+        "variables": "#d4289b", // 变量名
+        "strings": "#db6c11b0", // 字符串
+        "functions": "#382ce4c9", // 函数名
+        "numbers": "#9d1fbd", // 数字
+        // 下面都是注释的设置
+        "textMateRules": [
+            {
+                "name": "Comment",
+                "scope": [
+                    "comment",
+                    "comment.block",
+                    "comment.block.documentation",
+                    "comment.line",
+                    "comment.line.double-slash",
+                    "punctuation.definition.comment",
+                ],
+                "settings": {
+                    "foreground": "#629737", //设置颜色
+                    // "fontStyle": "bold", //加粗
+                    // "fontStyle": "italic", //斜体
+                    // "fontStyle": "underline",
+                    /*
+                    
+                    "fontStyle": "italic underline", //斜体下划线 
+                    "fontStyle": "italic bold underline", //斜体粗体下划线
+                    */
+                }
+            },
+        ]
+    },
+
+    //粘贴自动格式化
+    "editor.formatOnPaste": false,
+    "editor.formatOnType": true,
+    "editor.formatOnSave": false,
+
+    "git.path": "D:\\my_software\\git\\cmd\\git.exe", //设置git，在vscode中也可以commit，add，pull，push
+    "git.ignoreMissingGitWarning": true,
+    "git.autofetch": true,
+    "git.enableSmartCommit": true,
+    "git.confirmSync": false,
+    // 选中高亮的颜色
+    // "workbench.colorCustomizations": {
+    //     "editor.selectionBackground": "#690000"
+    // },
+    // "terminal.integrated.inheritEnv": false,
+
+    "workbench.iconTheme": "vscode-icons",
+    "workbench.startupEditor": "none",
+    "workbench.preferredDarkColorTheme": "Default High Contrast Light",
+    "workbench.editor.enablePreview": false,
+
+    "remote.SSH.remotePlatform": {
+        "region-11.autodl.com": "linux",
+        "region-41.autodl.com": "linux",
+        "region-41.seetacloud.com": "linux",
+        "xnwu": "linux"
+    },
+    
+    "remote.SSH.configFile": "/home/xnwu/wangyong/ssh/123",   
+
+    "sync.gist": "57fed57b82133879d339833ce9cd116d",
+    "sync.removeExtensions": false,
+    "sync.syncExtensions": false,
+    "settingsSync.ignoredExtensions": [],
+    "files.associations": {
+        "*.py": "python",
+        "*.md": "markdown"
+    },
+
+
+    // 用来忽略工程打开的文件夹
+    "files.exclude": {
+        "**/.vscode": false,
+        "**/.DS_Store": true,
+        "**/.history": true,
+        "**/nbproject": true,
+        "*.md":true  ,
+        "setpu*" :true,       
+        "*.yml*" :true,       
+        "*.cff*" :true,       
+        "*.in*" :true,       
+    },  
+     // 用来忽略搜索的文件夹
+    "search.exclude":{
+       "*.md":true  ,
+    },
+    // 创建和更新代码的头部信息作者
+    "fileheader.Author": "WangYong",
+    "fileheader.LastModifiedBy": "WangYong",
+    "[python]": {
+        "editor.formatOnType": true //自动格式化代码，自动缩进
+    },
+
+    "explorer.confirmDelete": false,
+    "security.workspace.trust.untrustedFiles": "open", //每次打开都会提示是受限模式，自动信任工作区
+
+    //todo-tree 标签配置  标签兼容大小写字母(很好的功能!!!)
+    "todo-tree.regex.regex": "((%|#|//|<!--|^\\s*\\*)\\s*($TAGS)|^\\s*- \\[ \\])",
+    // note：定义标签，注释掉的标签就不被显示
+    "todo-tree.general.tags": [
+        "modif", //添加自定义的标签成员,将在下面实现它们的样式
+        "add",
+        // "delete",
+        "tag",
+        "note",
+        "mark",
+    ],
+    "todo-tree.tree.showCountsInTree": true,
+    "todo-tree.tree.showScanModeButton": true,
+
+    //note：Globs，用于通过排除限制搜索结果例如`["**/*.txt"]`忽略所有.txt文件
+    "todo-tree.filtering.excludeGlobs": [
+        // "**/node_modules/*/**"
+        "**/*.md"
+    ],
+    "todo-tree.regex.regexCaseSensitive": false,
+    "todo-tree.highlights.defaultHighlight": { //如果相应变量没赋值就会使用这里的默认值
+        "foreground": "#1f1e1d", //字体颜色
+        "background": "#FFFF00", //背景色
+        "icon": "check", //标签样式 check 是一个对号的样式
+        "rulerColour": "#FFFF00", //边框颜色
+        "type": "tag", //填充色类型  可在TODO TREE 细节页面找到允许的值 
+        "iconColour": "#FFFF00", //标签颜色
+        "rulerLane": "full",
+    },
+    "todo-tree.highlights.customHighlight": {
+        //modif 		修改的代码
+        "modif": {
+            "icon": "alert", //标签样式
+            "background": "#c9c552", //背景色
+            "rulerColour": "#c9c552", //外框颜色
+            "iconColour": "#c9c552", //标签颜色
+        },
+        //add	 增加的代码
+         "add": {
+            "background": "#df7be6",
+            "icon": "flame",
+            "rulerColour": "#df7be6",
+            "iconColour": "#df7be6",
+        },
+        //delete		必须要修复的BUG  
+        "delete": {
+            "background": "#eb5c5c",
+            "icon": "delete",
+            "rulerColour": "#eb5c5c",
+            "iconColour": "#eb5c5c",
+        },
+        //tag		标签
+        "tag": {
+            "background": "#38b2f4",
+            "icon": "tag",
+            "rulerColour": "#38b2f4",
+            "iconColour": "#38b2f4",
+            "rulerLane": "full"
+        },
+        //note		笔记
+        "note": {
+            "background": "#5eec95",
+            "icon": "check",
+            "rulerColour": "#5eec95",
+            "iconColour": "#5eec95",
+        },
+        //mark     	标记一下
+        "mark": {
+            "background": "#f90",
+            "icon": "note",
+            "rulerColour": "#f90",
+            "iconColour": "#f90",
+        },
+       
+    },
+    "workbench.colorTheme": "Default Light Modern",
+    "window.zoomLevel": 1,
+}
