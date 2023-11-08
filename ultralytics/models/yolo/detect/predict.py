@@ -42,11 +42,13 @@ class DetectionPredictor(BasePredictor):
             # #tag:修改 添加下面四行代码
             if results[0].boxes.shape[0] == 0 :
                 shutil.move(img_path,dst='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230614/20230614_for_obj_det_noObj' )
-            if torch.any(results[0].boxes.cls==1.) and  results[0].boxes.shape[0]==1:  #  判断一个数是否在PyTorch张量中,torch.any(tensor == number)
-            #     shutil.move(img_path,dst= )    
+            # if torch.any(results[0].boxes.cls==1.) and  results[0].boxes.shape[0]==1:  #  判断一个数是否在PyTorch张量中,torch.any(tensor == number)
+            
+            if (results[0].boxes.cls == 1.).all().item():  #  使用(tensor == value).all()来判断张量中的所有元素是否都等于给定的值
                 shutil.move(img_path,dst='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230614/20230614_for_obj_det_onlyPC' )
-            if torch.any(results[0].boxes.cls==2.) and  results[0].boxes.shape[0]==1:  #  判断一个数是否在PyTorch张量中,torch.any(tensor == number)
-            #     shutil.move(img_path,dst= )    
+           
+            if  (results[0].boxes.cls == 2.).all().item() or  \
+                          (  (((results[0].boxes.cls == 1) | (results[0].boxes.cls == 2)).sum() == results[0].boxes.cls.numel()).item() and (results[0].boxes.cls).unique() ==2 ):  #判断所有的元素都为2,或者只有1和2,两者混合存在
                 shutil.move(img_path,dst='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230614/20230614_for_obj_det_onlySA' )
-            # #ta
+            #ta
         return results

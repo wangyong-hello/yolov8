@@ -86,6 +86,7 @@
         "*.cff*" :true,       
         "*.in*" :true,       
         "**/docker" :true,       
+        "setup*" :true,       
     },  
      // 用来忽略搜索的文件夹
     "search.exclude":{

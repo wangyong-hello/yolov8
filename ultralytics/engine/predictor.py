@@ -328,7 +328,8 @@ class BasePredictor:
             cv2.namedWindow(str(p), cv2.WINDOW_NORMAL | cv2.WINDOW_KEEPRATIO)  # allow window resize (Linux)
             cv2.resizeWindow(str(p), im0.shape[1], im0.shape[0])
         cv2.imshow(str(p), im0)
-        cv2.waitKey(500 if self.batch[3].startswith('image') else 1)  # 1 millisecond
+        # cv2.waitKey(500 if self.batch[3].startswith('image') else 1)  # 1 millisecond
+        cv2.waitKey(500 if self.batch[3].startswith('image') else 0)  # 1 millisecond
 
         #tag: 修改添加show的暂停
             # k = cv2.waitKey(0) & 0xFF
