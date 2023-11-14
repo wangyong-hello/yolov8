@@ -19,13 +19,12 @@ from ultralytics import YOLO
 ### 调节默认参数在 "/root/YOLOv8-main/ultralytics/yolo/configs/default.yaml"中
 ### 训练 yolo task=detect mode=train model=yolov8s.yaml  data=score_data.yaml epochs=100 batch=64 imgsz=640 pretrained=False optimizer=SGD 
 ### 预测 yolo task=detect mode=predict model=/root/YOLOv8-main/runs/detect/train9/weights/best.pt conf=0.25 source=/root/YOLOv8-main/rode_face_test/images    
-# Load a model
-# model = YOLO('/home/xnwu/wangyong/yolov8/ultralytics/cfg/models/v8/yolov8_samll_obj.yaml')  # build a new model from YAML   
-model = YOLO('yolov8n.yaml')  # build a new model from YAML   
+
+## note:仅放入权重也可以构建网络并导入权重，不需要先构建网络再导入权重后进行预训练
+model = YOLO('/home/xnwu/wangyong/yolov8/runs/detect/train_on_dataset2/weights/best.pt')  # build a new model from YAML   
 # model = YOLO('runs/detect/train_on_dataset1/weights/best.pt')  # load a pretrained model (recommended for training)#'
-model = model.load('/home/xnwu/wangyong/yolov8/runs/detect/train_on_dataset2/weights/best.pt')
-# model = model.load('/home/xnwu/wangyong/yolov8/official_weights/yolov8m.pt')
-model.train(data='score_data.yaml', epochs=100, imgsz=640,batch=16)
+# model = model.load('/home/xnwu/wangyong/yolov8/runs/detect/train_on_dataset2/weights/best.pt')
+model.train(data='score_data.yaml', epochs=100, imgsz=320,batch=16)
 
 
 
@@ -33,6 +32,8 @@ model.train(data='score_data.yaml', epochs=100, imgsz=640,batch=16)
 '''
     1.报错 FileNotFoundError: /home/xnwu/wangyong/yolov8/ultralytics/assets/bus.jpg does not exist？
         放一张假图片bus.jpg进去。
+    2.model = YOLO('yolov5s.yaml') ,使用本项目构建yolov5s网络，不是anchaor based。框和类别分离
+      Anchor-free Split Ultralytics Head，见 https://docs.ultralytics.com/models/yolov5/#overview
 
 '''
 '''
