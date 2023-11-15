@@ -49,7 +49,7 @@ class DetectionPredictor(BasePredictor):
                     shutil.move(img_path,dst='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230614/20230614_for_obj_det_RA' )
             except:
                 pass
-
+            
             try:
                 if torch.any(results[0].boxes.cls==4.) :  #  判断一个数是否在PyTorch张量中,torch.any(tensor == number)
                     shutil.move(img_path,dst='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230614/20230614_for_obj_det_SLA' )

@@ -30,7 +30,7 @@ Usage - formats:
 import platform
 from pathlib import Path
 
-import cv2
+import cv2,os
 import numpy as np
 import torch
 
@@ -329,13 +329,17 @@ class BasePredictor:
             cv2.resizeWindow(str(p), im0.shape[1], im0.shape[0])
         cv2.imshow(str(p), im0)
         # cv2.waitKey(500 if self.batch[3].startswith('image') else 1)  # 1 millisecond
-        cv2.waitKey(500 if self.batch[3].startswith('image') else 0)  # 1 millisecond
+        # cv2.waitKey(500 if self.batch[3].startswith('image') else 0)  # 1 millisecond
 
-        #tag: 修改添加show的暂停
-            # k = cv2.waitKey(0) & 0xFF
-            # if k == 27: # wait for ESC key to exit
-            #     cv2.destroyAllWindows()
-            
+        #tag: 修改添加show的暂停，保存
+        k = cv2.waitKey(0) & 0xFF
+        if k == 27: # wait for ESC key to exit   #按esc退出，下一张
+            cv2.destroyAllWindows()
+        if k == 83:                  #按s键，保存并退出，下一张      
+            des_dir="" 
+            cv2.imwrite(os.path.join(des_dir,))
+            cv2.destroyAllWindows()
+        
 
     def save_preds(self, vid_cap, idx, save_path):
         """Save video predictions as mp4 at specified path."""

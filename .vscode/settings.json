@@ -154,7 +154,7 @@
             "rulerColour": "#eb5c5c",
             "iconColour": "#eb5c5c",
         },
-        //tag		标签
+        //tag		.vs设置标签
         "tag": {
             "background": "#38b2f4",
             "icon": "tag",
@@ -180,4 +180,5 @@
     },
     "workbench.colorTheme": "Default Light Modern",
     "window.zoomLevel": -1,
+    "cmake.sourceDirectory": "/home/xnwu/wangyong/yolov8/examples/YOLOv8-CPP-Inference",
 }
