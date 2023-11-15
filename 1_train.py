@@ -21,21 +21,15 @@ from ultralytics import YOLO
 ### 预测 yolo task=detect mode=predict model=/root/YOLOv8-main/runs/detect/train9/weights/best.pt conf=0.25 source=/root/YOLOv8-main/rode_face_test/images    
 
 ## note:仅放入权重也可以构建网络并导入权重，不需要先构建网络再导入权重后进行预训练
-model = YOLO('/home/xnwu/wangyong/yolov8/runs/detect/train_on_dataset2/weights/best.pt')  # build a new model from YAML   
-# model = YOLO('runs/detect/train_on_dataset1/weights/best.pt')  # load a pretrained model (recommended for training)#'
-# model = model.load('/home/xnwu/wangyong/yolov8/runs/detect/train_on_dataset2/weights/best.pt')
-model.train(data='score_data.yaml', epochs=100, imgsz=320,batch=16)
+# model = YOLO('/home/xnwu/wangyong/yolov8/runs/detect/train/weights/best.pt')  # build a new model from YAML   
+# # model = YOLO('runs/detect/train_on_dataset1/weights/best.pt')  # load a pretrained model (recommended for training)#'
+# # model = model.load('/home/xnwu/wangyong/yolov8/runs/detect/train_on_dataset2/weights/best.pt')
+# 
+
+model=YOLO('yolov8n-p2.yaml').load('/home/xnwu/wangyong/yolov8/runs/detect/train_on_dataset3/weights/best.pt')
+model.train(data='score_data.yaml', epochs=200, imgsz=320,batch=16)
 
 
-
-
-'''
-    1.报错 FileNotFoundError: /home/xnwu/wangyong/yolov8/ultralytics/assets/bus.jpg does not exist？
-        放一张假图片bus.jpg进去。
-    2.model = YOLO('yolov5s.yaml') ,使用本项目构建yolov5s网络，不是anchaor based。框和类别分离
-      Anchor-free Split Ultralytics Head，见 https://docs.ultralytics.com/models/yolov5/#overview
-
-'''
 '''
     下列是可传入train参数：
 
@@ -87,4 +81,20 @@ model.train(data='score_data.yaml', epochs=100, imgsz=320,batch=16)
     ————————————————
     版权声明：本文为CSDN博主「Deen..」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
     原文链接：https://blog.csdn.net/weixin_55224780/article/details/130154135
+'''
+'''
+    1.报错 FileNotFoundError: /home/xnwu/wangyong/yolov8/ultralytics/assets/bus.jpg does not exist？
+        放一张假图片bus.jpg进去。
+    2.model = YOLO('yolov5s.yaml') ,使用本项目构建yolov5s网络，不是anchaor based。框和类别分离
+      Anchor-free Split Ultralytics Head，见 https://docs.ultralytics.com/models/yolov5/#overview
+    3.增加小目标检测层？
+        https://github.com/ultralytics/ultralytics/issues/981
+        YOLOv8-p2和YOLOv8-p6是YOLOv8目标检测模型的不同版本。
+
+        YOLOv8—p2是YOLOv8的一个改进版本，它在原始的YOLOv8模型中新增了一个P2层。P2层做的卷积次数较少，特征图的尺寸较大，更适合用于小目标的识别。因此，YOLOv8—p2可以提升对小目标的检测能力。
+
+        而YOLOv8—p6则是为了处理高分辨率图片而设计的一个版本。它在YOLOv8模型的基础上多卷积了一层，引入了更多的参数量。这使得YOLOv8—p6适用于处理高分辨率的图片，其中包含了大量可挖掘的信息。
+
+        所以，YOLOv8—p2和YOLOv8—p6都是对YOLOv8模型的扩展和改进，分别用于小目标检测和高分辨率图片处理。
+
 '''
