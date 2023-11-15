@@ -27,7 +27,7 @@ from ultralytics import YOLO
 # 
 
 model=YOLO('yolov8n-p2.yaml').load('/home/xnwu/wangyong/yolov8/runs/detect/train_on_dataset3/weights/best.pt')
-model.train(data='score_data.yaml', epochs=200, imgsz=320,batch=16)
+model.train(data='./cfg/score_data.yaml', epochs=200, imgsz=320,batch=16)
 
 
 '''
@@ -83,11 +83,37 @@ model.train(data='score_data.yaml', epochs=200, imgsz=320,batch=16)
     原文链接：https://blog.csdn.net/weixin_55224780/article/details/130154135
 '''
 '''
-    1.报错 FileNotFoundError: /home/xnwu/wangyong/yolov8/ultralytics/assets/bus.jpg does not exist？
+    1.yolov8项目的文件结构：
+        (1)ultralytics/cfg：
+            主要是模型的配置文件(如：yolov8s.yaml)，超参数的配置文件,数据集的配置文件（类别、训练路径等）
+        (2)ultralytics/nn：
+            模型的conv、head、block基础构件在 ultralytics/nn/modules 中
+            最后在task中注册模块并搭建网络
+            
+        (3)ultralytics/engine:
+            模型实际的trainer，predictor，validator。定义了train、predict、val的整个过程
+        (4)ultralytics/models：
+            “有点像构建并声明” ultralytics/models/yolo/model.py----->   validator，predictor，trainer
+        
+            调用封装后的 ultralytics/models/yolo/detect/train.py-----> 'trainer': yolo.detect.DetectionTrainer,
+                        ultralytics/models/yolo/detect/val.py----->'validator': yolo.detect.DetectionValidator,
+                        ultralytics/models/yolo/detect/predict.py----->'predictor': yolo.detect.DetectionPredictor
+                        
+        (5)ultralytics/data：数据集的加载，增强，封包等
+        (6)ultralytics/utils：画图、下载权重、等一些脚本
+    
+    2.添加注意力的流程：
+        (1)在modules中指定文件中添加要新建的模块（注意力、特殊卷积模块也好）。如果构建了个新模块，就加在block.py中,如果是什么
+        注意力，一般加在conv.py中。最后加完记得在文件头的__all___中写入，方便在task中导入
+        (2)在task中导入并，注册加入模块
+        (3)最后在网络的yaml文件中进行配置
+        
+            
+    2.报错 FileNotFoundError: /home/xnwu/wangyong/yolov8/ultralytics/assets/bus.jpg does not exist？
         放一张假图片bus.jpg进去。
-    2.model = YOLO('yolov5s.yaml') ,使用本项目构建yolov5s网络，不是anchaor based。框和类别分离
+    3.model = YOLO('yolov5s.yaml') ,使用本项目构建yolov5s网络，不是anchaor based。框和类别分离
       Anchor-free Split Ultralytics Head，见 https://docs.ultralytics.com/models/yolov5/#overview
-    3.增加小目标检测层？
+    4.增加小目标检测层？
         https://github.com/ultralytics/ultralytics/issues/981
         YOLOv8-p2和YOLOv8-p6是YOLOv8目标检测模型的不同版本。
 
