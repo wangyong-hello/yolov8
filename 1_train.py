@@ -26,8 +26,8 @@ from ultralytics import YOLO
 # # model = model.load('/home/xnwu/wangyong/yolov8/runs/detect/train_on_dataset2/weights/best.pt')
 # 
 
-model=YOLO('yolov8n-p2.yaml').load('/home/xnwu/wangyong/yolov8/runs/detect/train_on_dataset3/weights/best.pt')
-model.train(data='./cfg/score_data.yaml', epochs=200, imgsz=320,batch=16)
+model=YOLO('yolov8_p2_cbam.yaml').load('/home/xnwu/wangyong/yolov8/runs/detect/train_on_dataset3/weights/best.pt')
+model.train(data='ultralytics/cfg/score_data.yaml', epochs=200, imgsz=320,batch=16)
 
 
 '''
