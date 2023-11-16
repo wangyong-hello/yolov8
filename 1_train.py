@@ -26,9 +26,9 @@ from ultralytics import YOLO
 # # model = model.load('/home/xnwu/wangyong/yolov8/runs/detect/train_on_dataset2/weights/best.pt')
 # 
 
-model=YOLO('yolov8_p2_cbam.yaml').load('/home/xnwu/wangyong/yolov8/runs/detect/train_on_dataset3/weights/best.pt')
-model.train(data='ultralytics/cfg/score_data.yaml', epochs=200, imgsz=320,batch=16)
-
+# model=YOLO('yolov8_p2_cbam.yaml').load('/home/xnwu/wangyong/yolov8/runs/detect/train_on_dataset3/weights/best.pt')
+model=YOLO('yolov8m.yaml').load('/home/xnwu/wangyong/yolov8/runs/detect/train_yolov8m_on_dataset3/weights/best.pt')
+model.train(data='ultralytics/cfg/score_data.yaml', epochs=100, imgsz=640,batch=8)
 
 '''
     下列是可传入train参数：
@@ -105,7 +105,7 @@ model.train(data='ultralytics/cfg/score_data.yaml', epochs=200, imgsz=320,batch=
     2.添加注意力的流程：
         (1)在modules中指定文件中添加要新建的模块（注意力、特殊卷积模块也好）。如果构建了个新模块，就加在block.py中,如果是什么
         注意力，一般加在conv.py中。最后加完记得在文件头的__all___中写入，方便在task中导入
-        (2)在task中导入并，注册加入模块
+        (2)在task.py中导入并在prase_model()函数中注册加入模块，
         (3)最后在网络的yaml文件中进行配置
         
             

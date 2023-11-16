@@ -6,18 +6,16 @@ from ultralytics import YOLO
 # model.train(data='coco128.yaml', epochs=3)  # train the model
 # model('https://ultralytics.com/images/bus.jpg')  # predict on an image
 
-model = YOLO('/home/xnwu/wangyong/yolov8/runs/detect/yolov8m_on_dataset2/weights/best.pt') 
+model = YOLO('/home/xnwu/wangyong/yolov8/runs/detect/train/weights/best.pt') 
 # model = YOLO('/home/xnwu/wangyong/yolov8/runs/detect/yolov8m_on_dataset2/weights/best.pt') 
 
 #note:推理视频看效果前，要删除挑选图片模块
-model.predict('/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230614/20230614_for_obj_det',imgsz=640,save=False,save_crop=False,device='cuda',vid_stride=10,show=False,conf=0.1)
-# /home/xnwu/vims/数据采集/DVR/DVR_剪辑后回传/LOOP/no_elevated/crossroad/20221124142439077_LGWEF6A75MH250240_0_0_0.mp4
+model.predict('/home/xnwu/wangyong/20230718153007805_LGWEF6A75MH250240_0_0_0.mp4',imgsz=320,save=False,save_crop=False,device='cuda',vid_stride=10,show=True,conf=0.3)
+
 #文件夹下的图片：/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230428/20230428_for_det/1
-# /media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230522/no_elevated/crosswalk
-#            
-#视频：/home/xnwu/vlc-record-2020-12-09-10h24m20s-rtsp___192.168.1.3_stream0-.mp4
-   #/home/xnwu/vims/数据采集/DVR/20230718/20230718153307817_LGWEF6A75MH250240_0_0_0.mp4
-   #'/home/xnwu/vims/数据采集/DVR/20230718/20230718153007805_LGWEF6A75MH250240_0_0_0.mp4'  /media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/LOOP/1LOOP_for_objdet
+           
+#视频：/home/xnwu/wangyong/20230718153007805_LGWEF6A75MH250240_0_0_0.mp4
+#视频：/home/xnwu/wangyong/20230718153307817_LGWEF6A75MH250240_0_0_0.mp4
 
 '''
         source	'ultralytics/assets'	图片或视频的源目录
