@@ -1,5 +1,6 @@
 ####训练出来看：效果？测试用数据增强了？ 后处理？ 是半精度运行？输入多大？网络多大？ 模型某些操作(5维)硬件支持？
 # ###预打标只看效果 
+from pickle import TRUE
 from ultralytics import YOLO
 
 # from tensorboardX import summary
@@ -27,8 +28,9 @@ from ultralytics import YOLO
 # 
 
 # model=YOLO('yolov8_p2_cbam.yaml').load('/home/xnwu/wangyong/yolov8/runs/detect/train_on_dataset3/weights/best.pt')
-model=YOLO('yolov8m.yaml').load('/home/xnwu/wangyong/yolov8/runs/detect/train_yolov8m_on_dataset3/weights/best.pt')
-model.train(data='ultralytics/cfg/score_data.yaml', epochs=100, imgsz=640,batch=8)
+# model=YOLO('yolov8m.yaml').load('/home/xnwu/wangyong/code/yolov8/runs/detect/train/weights/best.pt')
+model=YOLO('/home/xnwu/wangyong/code/yolov8/runs/detect/train/weights/best.pt')
+model.train(data='ultralytics/cfg/score_data.yaml', epochs=100, imgsz=640,batch=8,resume=True)
 
 '''
     下列是可传入train参数：
