@@ -6,16 +6,16 @@ from ultralytics import YOLO
 # model.train(data='coco128.yaml', epochs=3)  # train the model
 # model('https://ultralytics.com/images/bus.jpg')  # predict on an image
 
-model = YOLO('/home/xnwu/wangyong/yolov8/runs/detect/train/weights/best.pt') 
+model = YOLO('/home/xnwu/wangyong/code/yolov8/runs/detect/train_yolov8m_on_dataset4/weights/best.pt') 
 # model = YOLO('/home/xnwu/wangyong/yolov8/runs/detect/yolov8m_on_dataset2/weights/best.pt') 
 
 #note:推理视频看效果前，要删除挑选图片模块
-model.predict('/home/xnwu/wangyong/20230718153007805_LGWEF6A75MH250240_0_0_0.mp4',imgsz=320,save=False,save_crop=False,device='cuda',vid_stride=10,show=True,conf=0.3)
+model.predict('/home/xnwu/wangyong/code/20230718153007805_LGWEF6A75MH250240_0_0_0.mp4',imgsz=640,save=False,save_crop=False,device='cpu',vid_stride=10,show=True,conf=0.3)
 
 #文件夹下的图片：/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230428/20230428_for_det/1
            
-#视频：/home/xnwu/wangyong/20230718153007805_LGWEF6A75MH250240_0_0_0.mp4
-#视频：/home/xnwu/wangyong/20230718153307817_LGWEF6A75MH250240_0_0_0.mp4
+#视频：/home/xnwu/wangyong/code/20230718153007805_LGWEF6A75MH250240_0_0_0.mp4
+#视频：/home/xnwu/wangyong/code/20230718153307817_LGWEF6A75MH250240_0_0_0.mp4
 
 '''
         source	'ultralytics/assets'	图片或视频的源目录

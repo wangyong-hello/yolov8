@@ -565,9 +565,10 @@ def check_amp(model):
     LOGGER.info(f'{prefix}running Automatic Mixed Precision (AMP) checks with YOLOv8n...')
     warning_msg = "Setting 'amp=True'. If you experience zero-mAP or NaN losses you can disable AMP with amp=False."
     try:
-        from ultralytics import YOLO
-        assert amp_allclose(YOLO('yolov8n.pt'), im)
-        LOGGER.info(f'{prefix}checks passed ✅')
+        return False  #tag:取消下载预训练权重
+        # from ultralytics import YOLO
+        # assert amp_allclose(YOLO('yolov8n.pt'), im)
+        # LOGGER.info(f'{prefix}checks passed ✅')
     except ConnectionError:
         LOGGER.warning(f'{prefix}checks skipped ⚠️, offline and unable to download YOLOv8n. {warning_msg}')
     except (AttributeError, ModuleNotFoundError):

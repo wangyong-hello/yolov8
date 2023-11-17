@@ -29,8 +29,9 @@ from ultralytics import YOLO
 
 # model=YOLO('yolov8_p2_cbam.yaml').load('/home/xnwu/wangyong/yolov8/runs/detect/train_on_dataset3/weights/best.pt')
 # model=YOLO('yolov8m.yaml').load('/home/xnwu/wangyong/code/yolov8/runs/detect/train/weights/best.pt')
-model=YOLO('/home/xnwu/wangyong/code/yolov8/runs/detect/train/weights/best.pt')
-model.train(data='ultralytics/cfg/score_data.yaml', epochs=100, imgsz=640,batch=8,resume=True)
+# model=YOLO('/home/xnwu/wangyong/code/yolov8/runs/detect/train/weights/best.pt')
+model=YOLO('/home/xnwu/wangyong/code/yolov8/official_weights/yolov8n.pt')
+model.train(data='ultralytics/cfg/score_data.yaml', epochs=100, imgsz=64,batch=8,resume=True)
 
 '''
     下列是可传入train参数：
@@ -124,5 +125,7 @@ model.train(data='ultralytics/cfg/score_data.yaml', epochs=100, imgsz=640,batch=
         而YOLOv8—p6则是为了处理高分辨率图片而设计的一个版本。它在YOLOv8模型的基础上多卷积了一层，引入了更多的参数量。这使得YOLOv8—p6适用于处理高分辨率的图片，其中包含了大量可挖掘的信息。
 
         所以，YOLOv8—p2和YOLOv8—p6都是对YOLOv8模型的扩展和改进，分别用于小目标检测和高分辨率图片处理。
+    5.取消每次运行下载预训练权重
+     https://wenku.csdn.net/answer/8106nszq8c
 
 '''
