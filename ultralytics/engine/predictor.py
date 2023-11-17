@@ -335,10 +335,10 @@ class BasePredictor:
         k = cv2.waitKey(0) & 0xFF
         if k == 27: # wait for ESC key to exit   #按esc退出，下一张
             cv2.destroyAllWindows()
-        if k == 83:                  #按s键，保存并退出，下一张      
-            des_dir="" 
-            cv2.imwrite(os.path.join(des_dir,))
-            cv2.destroyAllWindows()
+        # if k == 83:                  #按s键，保存并退出，下一张      
+        #     des_dir="" 
+        #     cv2.imwrite(os.path.join(des_dir,))
+        #     cv2.destroyAllWindows()
         
 
     def save_preds(self, vid_cap, idx, save_path):

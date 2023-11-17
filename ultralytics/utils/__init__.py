@@ -931,7 +931,9 @@ PREFIX = colorstr('Ultralytics: ')
 SETTINGS = SettingsManager()  # initialize settings
 DATASETS_DIR = Path(SETTINGS['datasets_dir'])  # global datasets directory
 WEIGHTS_DIR = Path(SETTINGS['weights_dir'])  # global weights directory
-RUNS_DIR = Path(SETTINGS['runs_dir'])  # global runs directory
+RUNS_DIR = Path(SETTINGS['runs_dir'])  # global runs directory    #tag:保存的路径这里面修改
+# RUNS_DIR='/home/xnwu/wangyong/code/yolov8/runs'
+# print(RUNS_DIR)    
 ENVIRONMENT = 'Colab' if is_colab() else 'Kaggle' if is_kaggle() else 'Jupyter' if is_jupyter() else \
     'Docker' if is_docker() else platform.system()
 TESTS_RUNNING = is_pytest_running() or is_github_actions_ci()

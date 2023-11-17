@@ -163,8 +163,17 @@ class BaseDataset(Dataset):
                 if r != 1:  # if sizes are not equal
                     w, h = (min(math.ceil(w0 * r), self.imgsz), min(math.ceil(h0 * r), self.imgsz))
                     im = cv2.resize(im, (w, h), interpolation=cv2.INTER_LINEAR)
+                    # cv2.imshow('result_rec', im)
+                    # k = cv2.waitKey(0) & 0xFF
+                    # if k == 27: # wait for ESC key to exit   #按esc退出，下一张
+                    #     cv2.destroyAllWindows()
             elif not (h0 == w0 == self.imgsz):  # resize by stretching image to square imgsz
-                im = cv2.resize(im, (self.imgsz, self.imgsz), interpolation=cv2.INTER_LINEAR)
+                im = cv2.resize(im, (self.imgsz, self.imgsz), interpolation=cv2.INTER_LINEAR)  #tag:图片进模型前resize
+                # cv2.imshow()
+                # cv2.imshow('result_square', im)
+                # k = cv2.waitKey(0) & 0xFF
+                # if k == 27: # wait for ESC key to exit   #按esc退出，下一张
+                #     cv2.destroyAllWindows()
 
             # Add to buffer if training with augmentations
             if self.augment:

@@ -1,6 +1,7 @@
 ####训练出来看：效果？测试用数据增强了？ 后处理？ 是半精度运行？输入多大？网络多大？ 模型某些操作(5维)硬件支持？
 # ###预打标只看效果 
-from pickle import TRUE
+from pickle import FALSE, TRUE
+from unicodedata import name
 from ultralytics import YOLO
 
 # from tensorboardX import summary
@@ -30,12 +31,13 @@ from ultralytics import YOLO
 # model=YOLO('yolov8_p2_cbam.yaml').load('/home/xnwu/wangyong/yolov8/runs/detect/train_on_dataset3/weights/best.pt')
 # model=YOLO('yolov8m.yaml').load('/home/xnwu/wangyong/code/yolov8/runs/detect/train/weights/best.pt')
 # model=YOLO('/home/xnwu/wangyong/code/yolov8/runs/detect/train/weights/best.pt')
-model=YOLO('/home/xnwu/wangyong/code/yolov8/official_weights/yolov8n.pt')
-model.train(data='ultralytics/cfg/score_data.yaml', epochs=100, imgsz=64,batch=8,resume=True)
+model=YOLO('yolov8n.yaml')
+model.train(data='ultralytics/cfg/score_data.yaml', project=None,name='yolon',epochs=100, imgsz=128,batch=1,resume=FALSE,device='cpu')
 
 '''
     下列是可传入train参数：
-
+    
+   
     Key	   Value	Description
     model	None	模型路径. yolov8n.pt, yolov8n.yaml
     data	None	数据集路径, i.e. coco128.yaml
@@ -127,5 +129,9 @@ model.train(data='ultralytics/cfg/score_data.yaml', epochs=100, imgsz=64,batch=8
         所以，YOLOv8—p2和YOLOv8—p6都是对YOLOv8模型的扩展和改进，分别用于小目标检测和高分辨率图片处理。
     5.取消每次运行下载预训练权重
      https://wenku.csdn.net/answer/8106nszq8c
-
+    6.解决train后权重保存路径乱跑的问题
+    https://www.sohu.com/a/717400664_121124366
+     project='runs'    #用来代替runs
+    names=runs/'yolov8m'  #用来代替yolov8
+    命令行输入: yolo setting reset 
 '''
