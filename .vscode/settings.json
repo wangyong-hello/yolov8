@@ -179,6 +179,6 @@
        
     },
     "workbench.colorTheme": "Default Light Modern",
-    "window.zoomLevel": 0,
+    "window.zoomLevel": -1,
     "cmake.sourceDirectory": "/home/xnwu/wangyong/yolov8/examples/YOLOv8-CPP-Inference",
 }
