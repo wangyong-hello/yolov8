@@ -48,13 +48,13 @@ class DetectionPredictor(BasePredictor):
             results.append(Results(orig_img, path=img_path, names=self.model.names, boxes=pred))  
             # #tag:修改 添加下面四行代码
             # if results[0].boxes.shape[0] == 0 :
-            #     des_dir='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230621_det/20230621_det_noObj'
+            #     des_dir='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230622/20230622_noObj'
             #     mkdir(des_dir)
             #     shutil.move(img_path,des_dir )
             
             # try:
             #     if torch.any(results[0].boxes.cls==0.) :  #  判断一个数是否在PyTorch张量中,torch.any(tensor == number)
-            #         des_dir='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230621_det/20230621_det_LA'
+            #         des_dir='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230622/20230622_LA'
             #         mkdir(des_dir)  
             #         shutil.move(img_path,des_dir)
             # except:
@@ -62,7 +62,7 @@ class DetectionPredictor(BasePredictor):
 
             # try:
             #     if torch.any(results[0].boxes.cls==3.) :  #  判断一个数是否在PyTorch张量中,torch.any(tensor == number)
-            #         des_dir='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230621_det/20230621_det_RA'
+            #         des_dir='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230622/20230622_RA'
             #         mkdir(des_dir)
             #         shutil.move(img_path,des_dir )
             # except:
@@ -70,7 +70,7 @@ class DetectionPredictor(BasePredictor):
             
             # try:
             #     if torch.any(results[0].boxes.cls==4.) :  #  判断一个数是否在PyTorch张量中,torch.any(tensor == number)
-            #         des_dir='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230621_det/20230621_det_SLA'
+            #         des_dir='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230622/20230622_SLA'
             #         mkdir(des_dir)
             #         shutil.move(img_path,des_dir ) 
             # except:
@@ -78,7 +78,7 @@ class DetectionPredictor(BasePredictor):
             
             # try:
             #     if torch.any(results[0].boxes.cls==5.) :  #  判断一个数是否在PyTorch张量中,torch.any(tensor == number)
-            #         des_dir='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230621_det/20230621_det_SRA'       
+            #         des_dir='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230622/20230622_SRA'       
             #         mkdir(des_dir)
             #         shutil.move(img_path,des_dir )           
             # except:
@@ -86,7 +86,7 @@ class DetectionPredictor(BasePredictor):
 
             # try:
             #     if len(results[0].boxes.cls)>0 and (results[0].boxes.cls == 1.).all().item():  #  使用(tensor == value).all()来判断张量中的所有元素是否都等于给定的值
-            #         des_dir='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230621_det/20230621_onlyPC'   
+            #         des_dir='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230622/20230622_onlyPC'   
             #         mkdir(des_dir)
             #         shutil.move(img_path,des_dir )
             # except:
@@ -95,14 +95,14 @@ class DetectionPredictor(BasePredictor):
             # try:
             #     if ( len(results[0].boxes.cls)>0 and (results[0].boxes.cls == 2.).all().item() ) or  \
             #                 ( (torch.any(results[0].boxes.cls==1.) ) and (torch.any(results[0].boxes.cls==2.))and (results[0].boxes.shape[0] ==2) ):  #判断所有的元素都为2,或者只有1和2,两者混合存在
-            #         des_dir='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230621_det/20230621__onlySA' 
+            #         des_dir='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230622/20230622__onlySA' 
             #         mkdir(des_dir)
             #         shutil.move(img_path,des_dir )        
             # except:
             #     pass
             
             # try:
-            #     des_dir='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230621_det/20230621_other' 
+            #     des_dir='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230622/20230622_other' 
             #     mkdir(des_dir)
             #     shutil.move(img_path,des_dir )
             # except:

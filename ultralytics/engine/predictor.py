@@ -179,7 +179,7 @@ class BasePredictor:
             result.save_txt(f'{self.txt_path}.txt', save_conf=self.args.save_conf)
         if self.args.save_crop:
             result.save_crop(save_dir=self.save_dir / 'crops',
-                             file_name=self.data_path.stem + ('' if self.dataset.mode == 'image' else f'_{frame}'))
+                             file_name=self.data_path.stem + ('' if self.dataset.mode == 'image' else f'_{frame}'))  #tag:视频分帧,保存的图片名称在这里
 
         return log_string
 
@@ -261,6 +261,7 @@ class BasePredictor:
             # mark:Postprocess
             with profilers[2]:
                 self.results = self.postprocess(preds, im, im0s)
+                a=self.results
             self.run_callbacks('on_predict_postprocess_end')
 
             # Visualize, save, write results

@@ -321,12 +321,134 @@ class Results(SimpleClass):
         if self.probs is not None:
             LOGGER.warning('WARNING ⚠️ Classify task do not support `save_crop`.')
             return
-        for d in self.boxes:
-            save_one_box(d.xyxy,
-                            self.orig_img.copy(),
-                            file=Path(save_dir) / self.names[int(d.cls)] / f'{Path(file_name).stem}.jpg',
-                            BGR=False)
-       
+        ##tag:调用裁剪每个目标框的函数
+        # for d in self.boxes:
+        #     save_one_box(d.xyxy,
+        #                     self.orig_img.copy(),
+        #                     file=Path(save_dir) / self.names[int(d.cls)] / f'{Path(file_name).stem}.jpg',
+        #                     BGR=False)
+        
+        
+        #tag:重写按条件保存
+        import cv2,os,shutil
+        from PIL import Image
+
+        try:
+            if self.boxes.shape[0] == 0  : 
+                save_dir_='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230622/20230622_noObj'
+                if not os.path.exists(save_dir_):
+                    os.mkdir(save_dir_)  
+                im=self.orig_img.copy()
+                im = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
+                filepath=os.path.join(save_dir_,file_name+'.jpg')
+                Image.fromarray(im).save(filepath, quality=100, subsampling=0)  # save RGB
+                return
+                
+        except:
+            pass
+        
+        try:
+            if torch.any(self.boxes.cls==3.) :  #  判断一个数是否在PyTorch张量中,torch.any(tensor == number)
+                save_dir_='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230622/20230622_RA'
+                if not os.path.exists(save_dir_):
+                    os.mkdir(save_dir_)  
+                im=self.orig_img.copy()
+                im = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
+                filepath=os.path.join(save_dir_,file_name+'.jpg')
+                Image.fromarray(im).save(filepath, quality=100, subsampling=0)  # save RGB
+                return
+                
+        except:
+            pass
+        
+        try:
+            if torch.any(self.boxes.cls==0.) :  #  判断一个数是否在PyTorch张量中,torch.any(tensor == number)
+                save_dir_='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230622/20230622_LA'
+                if not os.path.exists(save_dir_):
+                    os.mkdir(save_dir_)  
+                im=self.orig_img.copy()
+                im = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
+                filepath=os.path.join(save_dir_,file_name+'.jpg')
+                Image.fromarray(im).save(filepath, quality=100, subsampling=0)  # save RGB
+                return
+                
+        except:
+            pass
+
+        
+            
+
+        try:
+            if torch.any(self.boxes.cls==4.) :  #  判断一个数是否在PyTorch张量中,torch.any(tensor == number)
+                save_dir_='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230622/20230622_SLA'
+                if not os.path.exists(save_dir_):
+                    os.mkdir(save_dir_)  
+                im=self.orig_img.copy()
+                im = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
+                filepath=os.path.join(save_dir_,file_name+'.jpg')
+                Image.fromarray(im).save(filepath, quality=100, subsampling=0)  # save RGB
+                return
+                
+        except:
+            pass
+        
+        try:
+            if torch.any(self.boxes.cls==5.) :  #  判断一个数是否在PyTorch张量中,torch.any(tensor == number)
+                save_dir_='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230622/20230622_SRA'
+                if not os.path.exists(save_dir_):
+                    os.mkdir(save_dir_)  
+                im=self.orig_img.copy()
+                im = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
+                filepath=os.path.join(save_dir_,file_name+'.jpg')
+                Image.fromarray(im).save(filepath, quality=100, subsampling=0)  # save RGB
+                return
+                
+        except:
+            pass
+        
+
+        try:
+            if len(self.boxes.cls)>0 and (self.boxes.cls == 1.).all().item():    #  判断一个数是否在PyTorch张量中,torch.any(tensor == number)
+                save_dir_='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230622/20230622_onlyPC'
+                if not os.path.exists(save_dir_):
+                    os.mkdir(save_dir_)  
+                im=self.orig_img.copy()
+                im = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
+                filepath=os.path.join(save_dir_,file_name+'.jpg')
+                Image.fromarray(im).save(filepath, quality=100, subsampling=0)  # save RGB
+                return
+                
+        except:
+            pass
+        try:
+            if ( len(self.boxes.cls)>0 and (self.boxes.cls == 2.).all().item() ) or  \
+                            ( (torch.any(self.boxes.cls==1.) ) and (torch.any(self.boxes.cls==2.))and (self.boxes.shape[0] ==2) ):
+                save_dir_='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230622/20230622_onlySA'
+                if not os.path.exists(save_dir_):
+                    os.mkdir(save_dir_)  
+                im=self.orig_img.copy()
+                im = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
+                filepath=os.path.join(save_dir_,file_name+'.jpg')
+                Image.fromarray(im).save(filepath, quality=100, subsampling=0)  # save RGB 
+                return
+        except:
+            pass 
+        
+        try:
+            if 1:
+                save_dir_='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230622/20230622_other'
+                if not os.path.exists(save_dir_):
+                    os.mkdir(save_dir_)  
+                im=self.orig_img.copy()
+                im = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
+                filepath=os.path.join(save_dir_,file_name+'.jpg')
+                Image.fromarray(im).save(filepath, quality=100, subsampling=0)  # save RGB 
+                return
+        except:
+            pass 
+        
+        #tag:重写结束
+
 
     def tojson(self, normalize=False):
         """Convert the object to JSON format."""
