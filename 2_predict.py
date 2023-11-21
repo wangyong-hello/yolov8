@@ -8,7 +8,7 @@ model = YOLO('/home/xnwu/wangyong/Code/yolov8/runs/detect/train_yolov8m_on_datas
 # model.predict('/home/xnwu/wangyong/Dataset/test/20230823145154202_LGWEF6A75MH250240_0_0_0.mp4',imgsz=640,save=False,save_crop=True,device='cpu',vid_stride=10,show=False,conf=0.3)
 
 
-video_set_root='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230622'
+video_set_root='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230623'
 for video in tqdm(os.listdir(video_set_root)):
     video_path=os.path.join(video_set_root,video)
     model.predict(video_path,imgsz=640,save=False,save_crop=True,device='cpu',vid_stride=15,show=False,conf=0.3)
