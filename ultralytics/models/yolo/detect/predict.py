@@ -68,13 +68,13 @@ class DetectionPredictor(BasePredictor):
             # except:
             #     pass
             
-            # try:
-            #     if torch.any(results[0].boxes.cls==4.) :  #  判断一个数是否在PyTorch张量中,torch.any(tensor == number)
-            #         des_dir='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230622/20230622_SLA'
-            #         mkdir(des_dir)
-            #         shutil.move(img_path,des_dir ) 
-            # except:
-            #     pass
+            try:
+                if torch.any(results[0].boxes.cls==4.) :  #  判断一个数是否在PyTorch张量中,torch.any(tensor == number)
+                    des_dir='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230517_rain/20230517_for_det_NoObj_seleted_SLA'
+                    mkdir(des_dir)
+                    shutil.move(img_path,des_dir ) 
+            except:
+                pass
             
             # try:
             #     if torch.any(results[0].boxes.cls==5.) :  #  判断一个数是否在PyTorch张量中,torch.any(tensor == number)
