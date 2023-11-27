@@ -1,22 +1,24 @@
 # Load YOLOv8n, train it on COCO128 for 3 epochs and predict an image with it
+from pickle import FALSE
 from ultralytics import YOLO
 import os
 from tqdm import tqdm
 
 #note:推理视频看效果前，要删除挑选图片模块
-model = YOLO('/home/xnwu/wangyong/Code/yolov8/runs/detect/train_yolov8m_on_dataset3/weights/best.pt') 
-# model.predict('/home/xnwu/wangyong/Dataset/test/20230823145154202_LGWEF6A75MH250240_0_0_0.mp4',imgsz=640,save=False,save_crop=True,device='cpu',vid_stride=10,show=False,conf=0.3)
+model = YOLO('runs/detect/yolov8s_train_dataset55/weights/best.pt') 
+model.predict('/home/xnwu/wangyong/Dataset/test/20230823145154202_LGWEF6A75MH250240_0_0_0.mp4',imgsz=640,save=False,save_crop=False,device='cpu',vid_stride=20,show=True,conf=0.3)
 
 
-video_set_root='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230623'
-for video in tqdm(os.listdir(video_set_root)):
-    video_path=os.path.join(video_set_root,video)
-    model.predict(video_path,imgsz=640,save=False,save_crop=True,device='cpu',vid_stride=15,show=False,conf=0.3)
+# video_set_root='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230703'
+# for video in tqdm(os.listdir(video_set_root)):
+#     video_path=os.path.join(video_set_root,video)
+#     model.predict(video_path,imgsz=640,save=False,save_crop=True,device='cpu',vid_stride=20,show=False,conf=0.3)
 
 #文件夹下的图片：/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230428/20230428_for_det/1
            
-#视频：/home/xnwu/wangyong/code/20230718153007805_LGWEF6A75MH250240_0_0_0.mp4
-#视频：/home/xnwu/wangyong/code/20230718153307817_LGWEF6A75MH250240_0_0_0.mp4
+#视频：/home/xnwu/wangyong/Dataset/test/20230718153007805_LGWEF6A75MH250240_0_0_0.mp4
+#视频：/home/xnwu/wangyong/Dataset/test/20230718153307817_LGWEF6A75MH250240_0_0_0.mp4
+# /home/xnwu/wangyong/Dataset/test/20230823145154202_LGWEF6A75MH250240_0_0_0.mp4
 
 '''
         source	'ultralytics/assets'	图片或视频的源目录

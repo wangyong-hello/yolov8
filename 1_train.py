@@ -31,13 +31,11 @@ from ultralytics import YOLO
 # model=YOLO('yolov8_p2_cbam.yaml').load('/home/xnwu/wangyong/yolov8/runs/detect/train_on_dataset3/weights/best.pt')
 # model=YOLO('yolov8m.yaml').load('/home/xnwu/wangyong/code/yolov8/runs/detect/train/weights/best.pt')
 # model=YOLO('/home/xnwu/wangyong/code/yolov8/runs/detect/train/weights/best.pt')
-model=YOLO('yolov8n.yaml')
-model.train(data='ultralytics/cfg/score_data.yaml', project=None,name='yolon',epochs=100, imgsz=128,batch=1,resume=FALSE,device='cpu')
+model=YOLO('/home/xnwu/wangyong/Code/yolov8/runs/detect/yolov8s_train_dataset53/weights/best.pt')
+model.train(data='ultralytics/cfg/score_data.yaml', project=None,name='yolov8s_train_dataset5',resume=False,epochs=100,imgsz=640,batch=8)
 
 '''
-    下列是可传入train参数：
-    
-   
+    下列是可传入train参数：   
     Key	   Value	Description
     model	None	模型路径. yolov8n.pt, yolov8n.yaml
     data	None	数据集路径, i.e. coco128.yaml
