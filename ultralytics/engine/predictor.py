@@ -134,13 +134,26 @@ class BasePredictor:
                                    mkdir=True) if self.args.visualize and (not self.source_type.tensor) else False
         return self.model(im, augment=self.args.augment, visualize=visualize)
 
+    def cutpredict(self,im):
+        #tag: 加上裁剪进行推理
+        original_width , original_height = im[0].shape[1] , im[0].shape[0]
+        wid_l_ratio = 0.25
+        wid_r_ratio = 0.25
+        h_t_ratio = 0.4
+        h_bot_ratio = 0.15
+        x_min = int( wid_l_ratio * original_width )
+        y_min = int(h_t_ratio * original_height )
+        x_max = int(original_width -  wid_r_ratio * original_width )
+        y_max = int(original_height - h_bot_ratio * original_height )
+        im=[ x[y_min:y_max, x_min:x_max] for x in im]
+        return im        
     def pre_transform(self, im):
         """
         Pre-transform input image before inference.
 
         Args:
             im (List(np.ndarray)): (N, 3, h, w) for tensor, [(h, w, 3) x N] for list.
-
+        
         Returns:
             (list): A list of transformed images.
         """
@@ -252,6 +265,7 @@ class BasePredictor:
 
             # mark:Preprocess
             with profilers[0]:
+                im0s=self.cutpredict(im0s)  #tag:注释这行关闭cut推理
                 im = self.preprocess(im0s)
 
             # mark:Inference

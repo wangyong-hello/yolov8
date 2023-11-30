@@ -69,8 +69,8 @@ class BaseDataset(Dataset):
         self.single_cls = single_cls
         self.prefix = prefix
         self.fraction = fraction
-        self.im_files = self.get_img_files(self.img_path)
-        self.labels = self.get_labels()
+        self.im_files = self.get_img_files(self.img_path) #tag:
+        self.labels = self.get_labels()    #tag:
         self.update_labels(include_class=classes)  # single_cls and include_class
         self.ni = len(self.labels)  # number of images
         self.rect = rect

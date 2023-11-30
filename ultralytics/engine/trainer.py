@@ -7,7 +7,7 @@ Usage:
 """
 
 import math
-import os
+import os,shutil
 import subprocess
 import time
 import warnings
@@ -121,7 +121,7 @@ class BaseTrainer:
                     self.args.data = self.data['yaml_file']  # for validating 'yolo train data=url.zip' usage
         except Exception as e:
             raise RuntimeError(emojis(f"Dataset '{clean_url(self.args.data)}' error ❌ {e}")) from e
-
+        shutil.copy(self.args.data,self.save_dir)  #保存data的配置文件
         self.trainset, self.testset = self.get_dataset(self.data)
         self.ema = None
 

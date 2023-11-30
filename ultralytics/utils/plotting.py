@@ -117,6 +117,19 @@ class Annotator:
                 # self.draw.text((box[0], box[1]), label, fill=txt_color, font=self.font, anchor='ls')  # for PIL>8.0
                 self.draw.text((box[0], box[1] - h if outside else box[1]), label, fill=txt_color, font=self.font)
         else:  # cv2
+             #tag：box还原到原图
+            # original_width , original_height = self.im.shape[1] , self.im.shape[0]
+            # wid_l_ratio = 0.25
+            # wid_r_ratio = 0.25
+            # h_t_ratio = 0.4
+            # h_bot_ratio = 0.15
+            # x_min = int( wid_l_ratio * original_width )
+            # y_min = int(h_t_ratio * original_height )
+            # p1, p2 = (int(box[0]+y_min), int(box[1])+y_min), (int(box[2]+x_min), int(box[3]+x_min))
+            # p1, p2 = (int(box[0]+100), int(box[1])+100), (int(box[2]+100), int(box[3]+100))
+            # cv2.rectangle(self.im, p1, p2, color, thickness=self.lw, lineType=cv2.LINE_AA)
+            #
+            
             p1, p2 = (int(box[0]), int(box[1])), (int(box[2]), int(box[3]))
             cv2.rectangle(self.im, p1, p2, color, thickness=self.lw, lineType=cv2.LINE_AA)
             if label:
