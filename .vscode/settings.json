@@ -34,6 +34,16 @@
         ]
     },
 
+    "configurations": [
+        {
+                "name": "Python: Current File (Integrated Terminal)",
+                "type": "python",
+                "request": "launch",
+                "program": "${file}",
+                "console": "integratedTerminal",
+                "cwd": "${fileDirname}"
+        }, 
+    
     //粘贴自动格式化
     "editor.formatOnPaste": false,
     "editor.formatOnType": true,
