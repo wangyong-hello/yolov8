@@ -9,7 +9,7 @@ from sahi.utils.yolov8 import download_yolov8s_model
 from ultralytics.utils.files import increment_path
 
 
-def run(weights='yolov8n.pt', source='test.mp4', view_img=False, save_img=False, exist_ok=False):
+def run(weights='yolov8n.pt', source='/home/xnwu/wangyong/Dataset/test/20230718153007805_LGWEF6A75MH250240_0_0_0.mp4', view_img=True, save_img=False, exist_ok=False):
     """
     Run object detection on a video using YOLOv8 and SAHI.
 
@@ -25,12 +25,13 @@ def run(weights='yolov8n.pt', source='test.mp4', view_img=False, save_img=False,
     if not Path(source).exists():
         raise FileNotFoundError(f"Source path '{source}' does not exist.")
 
-    yolov8_model_path = f'models/{weights}'
+    yolov8_model_path = 'official_weights/yolov8s.pt'
+    # yolov8_model_path = f'models/{weights}
     download_yolov8s_model(yolov8_model_path)
     detection_model = AutoDetectionModel.from_pretrained(model_type='yolov8',
                                                          model_path=yolov8_model_path,
-                                                         confidence_threshold=0.3,
-                                                         device='cpu')
+                                                         confidence_threshold=0.6,
+                                                         device='cuda')
 
     # Video setup
     videocapture = cv2.VideoCapture(source)
@@ -49,8 +50,8 @@ def run(weights='yolov8n.pt', source='test.mp4', view_img=False, save_img=False,
 
         results = get_sliced_prediction(frame,
                                         detection_model,
-                                        slice_height=512,
-                                        slice_width=512,
+                                        slice_height=640,
+                                        slice_width=640,
                                         overlap_height_ratio=0.2,
                                         overlap_width_ratio=0.2)
         object_prediction_list = results.object_prediction_list
@@ -93,12 +94,12 @@ def run(weights='yolov8n.pt', source='test.mp4', view_img=False, save_img=False,
 def parse_opt():
     """Parse command line arguments."""
     parser = argparse.ArgumentParser()
-    parser.add_argument('--weights', type=str, default='/home/xnwu/wangyong/Code/yolov8/runs/detect/train_yolov8m_on_dataset3/weights/best.pt', help='initial weights path')
-    parser.add_argument('--source', type=str, default='/home/xnwu/wangyong/Dataset/test/20230823145154202_LGWEF6A75MH250240_0_0_0.mp4',required=True, help='video file path')
+    parser.add_argument('--weights', type=str, default='/home/xnwu/wangyong/Code/yolov8/runs/detect/yolov8s_train_dataset6/weights/best.pt', help='initial weights path')
+    parser.add_argument('--source', type=str, default='/home/xnwu/wangyong/Dataset/test/20230718153007805_LGWEF6A75MH250240_0_0_0.mp4',required=True, help='video file path')
     parser.add_argument('--view-img',default=True, action='store_true', help='show results')
-    parser.add_argument('--save-img', action='store_true', help='save results')
+    parser.add_argument('--save-img', default=True,action='store_true', help='save results')
     parser.add_argument('--exist-ok', action='store_true', help='existing project/name ok, do not increment')
-    return parser.parse_args()
+    # return parser.parse_args()
 
 
 def main(opt):
@@ -108,4 +109,5 @@ def main(opt):
 
 if __name__ == '__main__':
     opt = parse_opt()
-    main(opt)
+    # main(opt)
+    run(opt)
