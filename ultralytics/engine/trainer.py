@@ -101,7 +101,8 @@ class BaseTrainer:
         self.save_period = self.args.save_period
 
         self.batch_size = self.args.batch
-        self.epochs = self.args.epochs
+        # self.epochs = self.args.epochs   #self.epochs = self.args.epochs----->self.epochs = 101   #tag:resume并修改epoch  
+        self.epochs = 101 
         self.start_epoch = 0
         if RANK == -1:
             print_args(vars(self.args))
@@ -593,7 +594,8 @@ class BaseTrainer:
         if ckpt is None:
             return
         best_fitness = 0.0
-        start_epoch = ckpt['epoch'] + 1
+        # start_epoch = ckpt['epoch'] + 1  #start_epoch = ckpt['epoch'] + 1 ------> start_epoch = 100  #tag:resume并修改epoch
+        start_epoch = 100 
         if ckpt['optimizer'] is not None:
             self.optimizer.load_state_dict(ckpt['optimizer'])  # optimizer
             best_fitness = ckpt['best_fitness']

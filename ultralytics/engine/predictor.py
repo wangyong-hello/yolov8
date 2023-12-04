@@ -265,7 +265,7 @@ class BasePredictor:
 
             # mark:Preprocess
             with profilers[0]:
-                im0s=self.cutpredict(im0s)  #tag:注释这行关闭cut推理
+                # im0s=self.cutpredict(im0s)  #tag:注释这行关闭cut推理
                 im = self.preprocess(im0s)
 
             # mark:Inference
