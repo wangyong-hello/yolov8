@@ -99,6 +99,12 @@ class BaseDataset(Dataset):
     def get_img_files(self, img_path):
         """Read image files."""
         try:
+            # im=cv2.imread(img_path)
+            # cv2.imshow('result_square', im)
+            # k = cv2.waitKey(0) & 0xFF
+            # if k == 27: # wait for ESC key to exit   #按esc退出，下一张
+            #     cv2.destroyAllWindows()
+                
             f = []  # image files
             for p in img_path if isinstance(img_path, list) else [img_path]:
                 p = Path(p)  # os-agnostic
@@ -144,6 +150,10 @@ class BaseDataset(Dataset):
     def load_image(self, i, rect_mode=True):
         """Loads 1 image from dataset index 'i', returns (im, resized hw)."""
         im, f, fn = self.ims[i], self.im_files[i], self.npy_files[i]
+        # cv2.imshow('result_square', im)
+        # k = cv2.waitKey(0) & 0xFF
+        # if k == 27: # wait for ESC key to exit   #按esc退出，下一张
+        #     cv2.destroyAllWindows()
         if im is None:  # not cached in RAM
             if fn.exists():  # load npy
                 try:

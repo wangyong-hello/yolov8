@@ -3,7 +3,7 @@ from ultralytics import YOLO
 def predict():
     # Load a model
     # model = YOLO('yolov8n.pt')  # 加载官方的模型权重作评估
-    model = YOLO('/home/xnwu/wangyong/Code/yolov8/runs/detect/yolov8s_train_dataset7_crop_no_mosaic/weights/best.pt')  # 加载自定义的模型权重作评估
+    model = YOLO('/home/xnwu/wangyong/Code/Yolov8/runs/detect/yolov8s_train_on_dataset8_crop_side/weights/best.pt')  # 加载自定义的模型权重作评估
 
    	# 评估
     imgsz=320
