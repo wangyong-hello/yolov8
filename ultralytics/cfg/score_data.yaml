@@ -8,8 +8,8 @@
 
 
 # Train/val/test sets as 1) dir: path/to/imgs      2) file: path/to/imgs.txt      or 3) list: [path/to/imgs1      path/to/imgs2      ..]
-train: /home/xnwu/wangyong/Dataset/train_on_dataset8_crop_side/train/images # train images
-val: /home/xnwu/wangyong/Dataset/train_on_dataset8_crop_side/val/images # val images
+train: /home/xnwu/wangyong/Dataset/train_on_dataset8/train/images # train images
+val: /home/xnwu/wangyong/Dataset/train_on_dataset8/val/images # val images
 # test: /home/xnwu/wangyong/rode_face_test/images # test images (optional)
 # Classes
 names:

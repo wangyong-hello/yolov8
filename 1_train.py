@@ -23,7 +23,7 @@ from ultralytics import YOLO
 ### 预测 yolo task=detect mode=predict model=/root/YOLOv8-main/runs/detect/train9/weights/best.pt conf=0.25 source=/root/YOLOv8-main/rode_face_test/images    
 
 ## note:仅放入权重也可以构建网络并导入权重，不需要先构建网络再导入权重后进行预训练
-# model = YOLO('/home/xnwu/wangyong/yolov8/runs/detect/train/weights/best.pt')  # build a new model from YAML   
+# model = YOLO('/home/xnwu/wangyong/Code/Yolov8/official_weights/yolov8n.pt')  # build a new model from YAML   
 # # model = YOLO('runs/detect/train_on_dataset1/weights/best.pt')  # load a pretrained model (recommended for training)#'
 # # model = model.load('/home/xnwu/wangyong/yolov8/runs/detect/train_on_dataset2/weights/best.pt')
 # 
@@ -32,7 +32,7 @@ from ultralytics import YOLO
 # model=YOLO('yolov8m.yaml').load('/home/xnwu/wangyong/code/yolov8/runs/detect/train/weights/best.pt')
 # model=YOLO('/home/xnwu/wangyong/code/yolov8/runs/detect/train/weights/best.pt')
 model=YOLO('/home/xnwu/wangyong/Code/Yolov8/official_weights/yolov8n.pt')
-model.train(data='ultralytics/cfg/score_data.yaml', project=None,name='yolov8n_train_dataset8_crop_side',resume=False,epochs=100,imgsz=320,batch=16)#,rect=True,mosaic=1.0,
+model.train(data='ultralytics/cfg/score_data.yaml', project=None,name='yolov8s_train_dataset8_no_fliplr_no_scale_rect',resume=False,epochs=100,imgsz=320,batch=16,rect=True,fliplr=0,scale=0)#,rect=True,mosaic=1.0,scale=0
 
 '''
     下列是可传入train参数：   
@@ -126,10 +126,18 @@ model.train(data='ultralytics/cfg/score_data.yaml', project=None,name='yolov8n_t
 
         所以，YOLOv8—p2和YOLOv8—p6都是对YOLOv8模型的扩展和改进，分别用于小目标检测和高分辨率图片处理。
     5.取消每次运行下载预训练权重
-     https://wenku.csdn.net/answer/8106nszq8c
+        https://wenku.csdn.net/answer/8106nszq8c
     6.解决train后权重保存路径乱跑的问题
-    https://www.sohu.com/a/717400664_121124366
-     project='runs'    #用来代替runs
-    names=runs/'yolov8m'  #用来代替yolov8
-    命令行输入: yolo setting reset 
+        https://www.sohu.com/a/717400664_121124366
+        project='runs'    #用来代替runs
+        names=runs/'yolov8m'  #用来代替yolov8
+        命令行输入: yolo setting reset 
+    7.改变输入形状尺度的超参数：
+        rect 、mosaic、degrees(图像旋转的角度)、translate(平移的比例)、scale(缩放的比例)、Shear(切变,长方形变成平行四边形)、
+        flipud(上下翻转)、fliplr(左右翻转)。注意超参数对目标类别的影响，一定要关闭，比如以左右为分类的，左右翻转不要开启！！！！
+        rect矩形训练会关闭mosaic增强。
+    8.mosaic后目标尺寸变小 为什么效果反而好或者为什么开mosaic训练和不开mosaic训练，开启训练好？
+        开启mosaic训练，丰富了数据集，但是同时会让大目标的变小，增加了很多中小目标让网络鲁棒性更好，
+        也可能不利于大目标的检测，利于中小目标的检测。具体要看数据集中大小目标的比例.
+        另外参考：https://zhuanlan.zhihu.com/p/163356279
 '''

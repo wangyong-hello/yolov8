@@ -217,7 +217,8 @@ class Results(SimpleClass):
         """
         if img is None and isinstance(self.orig_img, torch.Tensor):
             img = (self.orig_img[0].detach().permute(1, 2, 0).contiguous() * 255).to(torch.uint8).cpu().numpy()
-
+        # import cv2 #tag:box还原到原图，重新读入原图
+        # img=cv2.imread(self.path)  
         names = self.names
         pred_boxes, show_boxes = self.boxes, boxes
         pred_masks, show_masks = self.masks, masks
@@ -329,126 +330,144 @@ class Results(SimpleClass):
         #                     BGR=False)
         
         
-        #tag:重写按条件保存
-        import cv2,os,shutil
-        from PIL import Image
-        try:
-            if torch.any(self.boxes.cls==4.) :  #  判断一个数是否在PyTorch张量中,torch.any(tensor == number)
-                save_dir_='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230703/20230703_SLA'
-                if not os.path.exists(save_dir_):
-                    os.mkdir(save_dir_)  
-                im=self.orig_img.copy()
-                im = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
-                filepath=os.path.join(save_dir_,file_name+'.jpg')
-                Image.fromarray(im).save(filepath, quality=100, subsampling=0)  # save RGB
-                return
-                
-        except:
-            pass
+        # tag:重写按条件保存
+        # import cv2,os,shutil
+        # from PIL import Image
+        # try:
+        #     if torch.any(self.boxes.cls==4.) :  #  判断一个数是否在PyTorch张量中,torch.any(tensor == number)
+        #         save_dir_='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/2023_1107_night/2023_1107_night_SLA'
+        #         if not os.path.exists(save_dir_):
+        #             os.mkdir(save_dir_)  
+        #         im=self.orig_img.copy()
+        #         im = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
+        #         filepath=os.path.join(save_dir_,file_name+'.jpg')
+        #         Image.fromarray(im).save(filepath, quality=100, subsampling=0)  # save RGB
+        #         return    
+        # except:
+        #     pass
+        
+        # try:
+        #     if torch.any(self.boxes.cls==8.) :  #  判断一个数是否在PyTorch张量中,torch.any(tensor == number)
+        #         save_dir_='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/2023_1107_night/2023_1107_night_MLA'
+        #         if not os.path.exists(save_dir_):
+        #             os.mkdir(save_dir_)  
+        #         im=self.orig_img.copy()
+        #         im = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
+        #         filepath=os.path.join(save_dir_,file_name+'.jpg')
+        #         Image.fromarray(im).save(filepath, quality=100, subsampling=0)  # save RGB
+        #         return    
+        # except:
+        #     pass
+        
+        # try:
+        #     if torch.any(self.boxes.cls==10.) :  #  判断一个数是否在PyTorch张量中,torch.any(tensor == number)
+        #         save_dir_='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/2023_1107_night/2023_1107_night_MLR'
+        #         if not os.path.exists(save_dir_):
+        #             os.mkdir(save_dir_)  
+        #         im=self.orig_img.copy()
+        #         im = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
+        #         filepath=os.path.join(save_dir_,file_name+'.jpg')
+        #         Image.fromarray(im).save(filepath, quality=100, subsampling=0)  # save RGB
+        #         return    
+        # except:
+        #     pass
 
 
-        try:
-            if torch.any(self.boxes.cls==3.) :  #  判断一个数是否在PyTorch张量中,torch.any(tensor == number)
-                save_dir_='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230703/20230703_RA'
-                if not os.path.exists(save_dir_):
-                    os.mkdir(save_dir_)  
-                im=self.orig_img.copy()
-                im = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
-                filepath=os.path.join(save_dir_,file_name+'.jpg')
-                Image.fromarray(im).save(filepath, quality=100, subsampling=0)  # save RGB
-                return
+        # try:
+        #     if torch.any(self.boxes.cls==3.) :  #  判断一个数是否在PyTorch张量中,torch.any(tensor == number)
+        #         save_dir_='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/2023_1107_night/2023_1107_night_RA'
+        #         if not os.path.exists(save_dir_):
+        #             os.mkdir(save_dir_)  
+        #         im=self.orig_img.copy()
+        #         im = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
+        #         filepath=os.path.join(save_dir_,file_name+'.jpg')
+        #         Image.fromarray(im).save(filepath, quality=100, subsampling=0)  # save RGB
+        #         return
                 
-        except:
-            pass
+        # except:
+        #     pass
 
-        try:
-            if self.boxes.shape[0] == 0  : 
-                save_dir_='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230703/20230703_noObj'
-                if not os.path.exists(save_dir_):
-                    os.mkdir(save_dir_)  
-                im=self.orig_img.copy()
-                im = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
-                filepath=os.path.join(save_dir_,file_name+'.jpg')
-                Image.fromarray(im).save(filepath, quality=100, subsampling=0)  # save RGB
-                return
+        # try:
+        #     if self.boxes.shape[0] == 0  : 
+        #         save_dir_='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/2023_1107_night/2023_1107_night_noObj'
+        #         if not os.path.exists(save_dir_):
+        #             os.mkdir(save_dir_)  
+        #         im=self.orig_img.copy()
+        #         im = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
+        #         filepath=os.path.join(save_dir_,file_name+'.jpg')
+        #         Image.fromarray(im).save(filepath, quality=100, subsampling=0)  # save RGB
+        #         return
                 
-        except:
-            pass
+        # except:
+        #     pass
         
         
-        try:
-            if torch.any(self.boxes.cls==0.) :  #  判断一个数是否在PyTorch张量中,torch.any(tensor == number)
-                save_dir_='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230703/20230703_LA'
-                if not os.path.exists(save_dir_):
-                    os.mkdir(save_dir_)  
-                im=self.orig_img.copy()
-                im = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
-                filepath=os.path.join(save_dir_,file_name+'.jpg')
-                Image.fromarray(im).save(filepath, quality=100, subsampling=0)  # save RGB
-                return
+        # try:
+        #     if torch.any(self.boxes.cls==0.) :  #  判断一个数是否在PyTorch张量中,torch.any(tensor == number)
+        #         save_dir_='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/2023_1107_night/2023_1107_night_LA'
+        #         if not os.path.exists(save_dir_):
+        #             os.mkdir(save_dir_)  
+        #         im=self.orig_img.copy()
+        #         im = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
+        #         filepath=os.path.join(save_dir_,file_name+'.jpg')
+        #         Image.fromarray(im).save(filepath, quality=100, subsampling=0)  # save RGB
+        #         return
                 
-        except:
-            pass
+        # except:
+        #     pass
+        
+        # try:
+        #     if torch.any(self.boxes.cls==5.) :  #  判断一个数是否在PyTorch张量中,torch.any(tensor == number)
+        #         save_dir_='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/2023_1107_night/2023_1107_night_SRA'
+        #         if not os.path.exists(save_dir_):
+        #             os.mkdir(save_dir_)  
+        #         im=self.orig_img.copy()
+        #         im = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
+        #         filepath=os.path.join(save_dir_,file_name+'.jpg')
+        #         Image.fromarray(im).save(filepath, quality=100, subsampling=0)  # save RGB
+        #         return               
+        # except:
+        #     pass       
 
+        # try:
+        #     if len(self.boxes.cls)>0 and (self.boxes.cls == 1.).all().item():    #  判断一个数是否在PyTorch张量中,torch.any(tensor == number)
+        #         save_dir_='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/2023_1107_night/2023_1107_night_onlyPC'
+        #         if not os.path.exists(save_dir_):
+        #             os.mkdir(save_dir_)  
+        #         im=self.orig_img.copy()
+        #         im = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
+        #         filepath=os.path.join(save_dir_,file_name+'.jpg')
+        #         Image.fromarray(im).save(filepath, quality=100, subsampling=0)  # save RGB
+        #         return                
+        # except:
+        #     pass
         
-            
-
+        # try:
+        #     if ( len(self.boxes.cls)>0 and (self.boxes.cls == 2.).all().item() ) or  \
+        #                     ( (torch.any(self.boxes.cls==1.) ) and (torch.any(self.boxes.cls==2.))and (self.boxes.shape[0] ==2) ):
+        #         save_dir_='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/2023_1107_night/2023_1107_night_onlySA'
+        #         if not os.path.exists(save_dir_):
+        #             os.mkdir(save_dir_)  
+        #         im=self.orig_img.copy()
+        #         im = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
+        #         filepath=os.path.join(save_dir_,file_name+'.jpg')
+        #         Image.fromarray(im).save(filepath, quality=100, subsampling=0)  # save RGB 
+        #         return
+        # except:
+        #     pass 
         
-        
-        try:
-            if torch.any(self.boxes.cls==5.) :  #  判断一个数是否在PyTorch张量中,torch.any(tensor == number)
-                save_dir_='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230703/20230703_SRA'
-                if not os.path.exists(save_dir_):
-                    os.mkdir(save_dir_)  
-                im=self.orig_img.copy()
-                im = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
-                filepath=os.path.join(save_dir_,file_name+'.jpg')
-                Image.fromarray(im).save(filepath, quality=100, subsampling=0)  # save RGB
-                return
-                
-        except:
-            pass
-        
-
-        try:
-            if len(self.boxes.cls)>0 and (self.boxes.cls == 1.).all().item():    #  判断一个数是否在PyTorch张量中,torch.any(tensor == number)
-                save_dir_='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230703/20230703_onlyPC'
-                if not os.path.exists(save_dir_):
-                    os.mkdir(save_dir_)  
-                im=self.orig_img.copy()
-                im = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
-                filepath=os.path.join(save_dir_,file_name+'.jpg')
-                Image.fromarray(im).save(filepath, quality=100, subsampling=0)  # save RGB
-                return
-                
-        except:
-            pass
-        try:
-            if ( len(self.boxes.cls)>0 and (self.boxes.cls == 2.).all().item() ) or  \
-                            ( (torch.any(self.boxes.cls==1.) ) and (torch.any(self.boxes.cls==2.))and (self.boxes.shape[0] ==2) ):
-                save_dir_='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230703/20230703_onlySA'
-                if not os.path.exists(save_dir_):
-                    os.mkdir(save_dir_)  
-                im=self.orig_img.copy()
-                im = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
-                filepath=os.path.join(save_dir_,file_name+'.jpg')
-                Image.fromarray(im).save(filepath, quality=100, subsampling=0)  # save RGB 
-                return
-        except:
-            pass 
-        
-        try:
-            if 1:
-                save_dir_='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230703/20230703_other'
-                if not os.path.exists(save_dir_):
-                    os.mkdir(save_dir_)  
-                im=self.orig_img.copy()
-                im = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
-                filepath=os.path.join(save_dir_,file_name+'.jpg')
-                Image.fromarray(im).save(filepath, quality=100, subsampling=0)  # save RGB 
-                return
-        except:
-            pass 
+        # try:
+        #     if 1:
+        #         save_dir_='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/2023_1107_night/2023_1107_night_other'
+        #         if not os.path.exists(save_dir_):
+        #             os.mkdir(save_dir_)  
+        #         im=self.orig_img.copy()
+        #         im = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
+        #         filepath=os.path.join(save_dir_,file_name+'.jpg')
+        #         Image.fromarray(im).save(filepath, quality=100, subsampling=0)  # save RGB 
+        #         return
+        # except:
+        #     pass 
         
         #tag:重写结束
 

@@ -4,14 +4,17 @@ from ultralytics import YOLO
 import os,cv2
 from tqdm import tqdm
 
-# note:推理视频看效果前，要删除挑选图片模块
-# model = YOLO('/home/xnwu/wangyong/Code/yolov8/runs/detect/yolov8s_train_dataset7_crop8/weights/best.pt') 
-# model.predict('/home/xnwu/Desktop/20230823/20230823150354216_LGWEF6A75MH250240_0_0_0.mp4',imgsz=320,save=False,save_crop=False,device='cuda',vid_stride=20,show=False,conf=0.3)
+# # note:推理视频看效果前，要删除挑选图片模块
+model = YOLO('/home/xnwu/wangyong/Code/Yolov8/runs/detect/yolov8n_train_dataset8_new_no_fliplr_no_scale/weights/best.pt') 
+model.predict("/home/xnwu/wangyong/vims/20231122浦东-中环-华夏-龙东-内环/场景理解_视频/高架下/20231122140603596_LGWEF6A75MH250240_0_0_0.mp4_20231124_141252.mp4",imgsz=320,save=False,save_crop=False,device='cuda',vid_stride=20,show=True,conf=0.3)
+# /home/xnwu/wangyong/vims/20231122浦东-中环-华夏-龙东-内环/场景理解_视频/高架下/20231122140603596_LGWEF6A75MH250240_0_0_0.mp4_20231124_141252.mp4
+# 20231122120936821_LGWEF6A75MH250240_0_0_0.mp4_20231124_140946.mp4  强光
+# 20231122140904549_LGWEF6A75MH250240_0_0_0.mp4_20231124_141418.mp4
 
-
-model = YOLO('/home/xnwu/wangyong/Code/yolov8/runs/detect/yolov8s_train_dataset6/weights/best.pt')
-video_set_root='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230823'
-for video in tqdm(os.listdir(video_set_root)):
+# model = YOLO('/home/xnwu/wangyong/Code/yolov8/runs/detect/yolov8s_train_dataset6/weights/best.pt')
+# video_set_root='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230823'
+video_set_root='/home/xnwu/wangyong/vims/20231107/场景理解_视频/晚上/'
+for video in tqdm(os.listdir(video_set_root)[:]):
     video_path=os.path.join(video_set_root,video)
     model.predict(video_path,imgsz=640,save=False,save_crop=True,device='cuda',vid_stride=20,show=False,conf=0.3)
 
@@ -56,4 +59,21 @@ for video in tqdm(os.listdir(video_set_root)):
     目标框在ultralytics/models/yolo/detect/predict.py中修改
     绘制保存/ultralytics/engine/results.py中修改
     保存crop的图片在ultralytics/utils/plotting.py中修改
+    
+    #1.yoloV8的输入和输出
+        输入一张320*320的图片,输出三张特征图:第一个16为类别数
+        (batch,(16+16*4),10,10),(batch,(16+16*4),20,20),(batch,(16+16*4),40,40)
+        分别对应原图上的大中小目标,分别缩放32倍,16倍,8倍。
+        decoupled head,网络会分成回归分支和分类分支，最后再汇总在一起，
+        得到输出shape为 batch*80*2100。
+        
+        而yolov5输出三张特征图为
+        (batch,3,10,10,21),(batch,3,20,20,21),(batch,3,40,40,21) 
+        3表示3个anchor,21=16+4+1,分别为16个类概率,4为box,1为cls
+        得到输出shape为batch*63*2100.
+        
+        
+        参阅：https://zhuanlan.zhihu.com/p/665949863
+    
+    
 '''

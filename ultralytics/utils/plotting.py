@@ -125,13 +125,11 @@ class Annotator:
             # h_bot_ratio = 0.15
             # x_min = int( wid_l_ratio * original_width )
             # y_min = int(h_t_ratio * original_height )
-            # p1, p2 = (int(box[0]+y_min), int(box[1])+y_min), (int(box[2]+x_min), int(box[3]+x_min))
-            # p1, p2 = (int(box[0]+100), int(box[1])+100), (int(box[2]+100), int(box[3]+100))
-            # cv2.rectangle(self.im, p1, p2, color, thickness=self.lw, lineType=cv2.LINE_AA)
-            #
+            # p1, p2 = ( int(box[0]+x_min), int(box[1]+y_min) ),( int(box[2]+x_min), int(box[3]+y_min) )
             
             p1, p2 = (int(box[0]), int(box[1])), (int(box[2]), int(box[3]))
             cv2.rectangle(self.im, p1, p2, color, thickness=self.lw, lineType=cv2.LINE_AA)
+            
             if label:
                 w, h = cv2.getTextSize(label, 0, fontScale=self.sf, thickness=self.tf)[0]  # text width, height
                 outside = p1[1] - h >= 3

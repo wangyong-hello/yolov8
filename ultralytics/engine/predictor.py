@@ -265,8 +265,9 @@ class BasePredictor:
 
             # mark:Preprocess
             with profilers[0]:
-                # im0s=self.cutpredict(im0s)  #tag:注释这行关闭cut推理
-                im = self.preprocess(im0s)
+                big_img=im0s
+                cut_im0s=self.cutpredict(im0s)  #tag:注释这行关闭cut推理
+                im = self.preprocess(cut_im0s)
 
             # mark:Inference
             with profilers[1]:
@@ -274,7 +275,7 @@ class BasePredictor:
 
             # mark:Postprocess
             with profilers[2]:
-                self.results = self.postprocess(preds, im, im0s)
+                self.results = self.postprocess(preds,im , cut_im0s) #self.no = nc + self.reg_max * 4
                 a=self.results
             self.run_callbacks('on_predict_postprocess_end')
 

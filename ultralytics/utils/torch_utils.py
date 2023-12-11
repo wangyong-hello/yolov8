@@ -223,6 +223,7 @@ def model_info(model, detailed=False, verbose=True, imgsz=640):
             LOGGER.info('%5g %40s %9s %12g %20s %10.3g %10.3g %10s' %
                         (i, name, p.requires_grad, p.numel(), list(p.shape), p.mean(), p.std(), p.dtype))
 
+    # imgsz=[320,640]    #tag：修改输入尺寸为指定大小，模型计算量的计算需要输入尺寸，
     flops = get_flops(model, imgsz)
     fused = ' (fused)' if getattr(model, 'is_fused', lambda: False)() else ''
     fs = f', {flops:.1f} GFLOPs' if flops else ''
