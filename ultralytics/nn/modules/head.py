@@ -31,7 +31,7 @@ class Detect(nn.Module):
         self.nc = nc  # number of classes
         self.nl = len(ch)  # number of detection layers
         self.reg_max = 16  # DFL channels (ch[0] // 16 to scale 4/8/12/16/20 for n/s/m/l/x)
-        self.no = nc + self.reg_max * 4  # number of outputs per anchor
+        self.no = nc + self.reg_max * 4  # number of outputs per anchor 
         self.stride = torch.zeros(self.nl)  # strides computed during build
         c2, c3 = max((16, ch[0] // 4, self.reg_max * 4)), max(ch[0], min(self.nc, 100))  # channels
         self.cv2 = nn.ModuleList(
@@ -41,13 +41,13 @@ class Detect(nn.Module):
 
     def forward(self, x):
         """Concatenates and returns predicted bounding boxes and class probabilities."""
-        shape = x[0].shape  # BCHW
+        shape = x[0].shape  # BCHW  
         for i in range(self.nl):
             x[i] = torch.cat((self.cv2[i](x[i]), self.cv3[i](x[i])), 1)
         if self.training:
             return x
         elif self.dynamic or self.shape != shape:
-            self.anchors, self.strides = (x.transpose(0, 1) for x in make_anchors(x, self.stride, 0.5))
+            self.anchors, self.strides = (x.transpose(0, 1) for x in make_anchors(x, self.stride, 0.5))  #stride为8，16，32
             self.shape = shape
 
         x_cat = torch.cat([xi.view(shape[0], self.no, -1) for xi in x], 2)

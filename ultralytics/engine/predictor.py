@@ -196,7 +196,7 @@ class BasePredictor:
 
         return log_string
 
-    def postprocess(self, preds, img, orig_imgs):
+    def postprocess(self, preds, img,orig_imgs):
         """Post-processes predictions for an image and returns them."""
         return preds
 
