@@ -633,7 +633,12 @@ class RandomFlip:
             instances.flipud(h)
         if self.direction == 'horizontal' and random.random() < self.p:
             img = np.fliplr(img)
-            instances.fliplr(w)
+            instances.fliplr(w) 
+            # cv2.imshow('flip img', img)
+            # k = cv2.waitKey(0) & 0xFF
+            # if k == 27: # wait for ESC key to exit   #按esc退出，下一张
+            #     cv2.destroyAllWindows()
+            
             # For keypoints
             if self.flip_idx is not None and instances.keypoints is not None:
                 instances.keypoints = np.ascontiguousarray(instances.keypoints[:, self.flip_idx, :])

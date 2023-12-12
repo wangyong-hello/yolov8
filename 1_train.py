@@ -32,7 +32,7 @@ from ultralytics import YOLO
 # model=YOLO('yolov8m.yaml').load('/home/xnwu/wangyong/code/yolov8/runs/detect/train/weights/best.pt')
 # model=YOLO('/home/xnwu/wangyong/code/yolov8/runs/detect/train/weights/best.pt')
 model=YOLO('/home/xnwu/wangyong/Code/Yolov8/official_weights/yolov8n.pt')
-model.train(data='ultralytics/cfg/score_data.yaml', project=None,name='yolov8s_train_dataset8_no_fliplr_no_scale_rect',resume=False,epochs=100,imgsz=320,batch=16,rect=True,fliplr=0,scale=0)#,rect=True,mosaic=1.0,scale=0
+model.train(data='ultralytics/cfg/score_data.yaml',device='cuda',project=None,name='yolov8n_train_dataset8_test',resume=False,epochs=100,imgsz=320,batch=16)#,rect=True,mosaic=1.0,scale=0,,rect=False,fliplr=0.0,scale=0.1,translate=0.0
 
 '''
     下列是可传入train参数：   
@@ -140,4 +140,6 @@ model.train(data='ultralytics/cfg/score_data.yaml', project=None,name='yolov8s_t
         开启mosaic训练，丰富了数据集，但是同时会让大目标的变小，增加了很多中小目标让网络鲁棒性更好，
         也可能不利于大目标的检测，利于中小目标的检测。具体要看数据集中大小目标的比例.
         另外参考：https://zhuanlan.zhihu.com/p/163356279
+        
+        https://zhuanlan.zhihu.com/p/365665395
 '''
