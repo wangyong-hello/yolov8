@@ -99,12 +99,6 @@ class BaseDataset(Dataset):
     def get_img_files(self, img_path):
         """Read image files."""
         try:
-            # im=cv2.imread(img_path)
-            # cv2.imshow('result_square', im)
-            # k = cv2.waitKey(0) & 0xFF
-            # if k == 27: # wait for ESC key to exit   #按esc退出，下一张
-            #     cv2.destroyAllWindows()
-                
             f = []  # image files
             for p in img_path if isinstance(img_path, list) else [img_path]:
                 p = Path(p)  # os-agnostic
@@ -184,7 +178,10 @@ class BaseDataset(Dataset):
                 # k = cv2.waitKey(0) & 0xFF
                 # if k == 27: # wait for ESC key to exit   #按esc退出，下一张
                 #     cv2.destroyAllWindows()
-
+            # cv2.imshow('result_square', im)
+            # k = cv2.waitKey(0) & 0xFF
+            # if k == 27: # wait for ESC key to exit   #按esc退出，下一张
+            #     cv2.destroyAllWindows()
             # Add to buffer if training with augmentations
             if self.augment:
                 self.ims[i], self.im_hw0[i], self.im_hw[i] = im, (h0, w0), im.shape[:2]  # im, hw_original, hw_resized
@@ -264,7 +261,7 @@ class BaseDataset(Dataset):
 
     def __getitem__(self, index):
         """Returns transformed label information for given index."""
-        return self.transforms(self.get_image_and_label(index))
+        return self.transforms(self.get_image_and_label(index))   #tag:将原始的img进行增强等转tensor转换
 
     def get_image_and_label(self, index):
         """Get and return label information from the dataset."""
@@ -275,6 +272,10 @@ class BaseDataset(Dataset):
                               label['resized_shape'][1] / label['ori_shape'][1])  # for evaluation
         if self.rect:
             label['rect_shape'] = self.batch_shapes[self.batch[index]]
+        # cv2.imshow('origin img', label['img'])  
+        # k = cv2.waitKey(0) & 0xFF
+        # if k == 27: # wait for ESC key to exit   #按esc退出，下一张
+        #     cv2.destroyAllWindows()
         return self.update_labels_info(label)
 
     def __len__(self):
@@ -285,7 +286,7 @@ class BaseDataset(Dataset):
         """Custom your label format here."""
         return label
 
-    def build_transforms(self, hyp=None):
+    def build_transforms(self, hyp=None):   ##tag:在父类中声明函数,在子类中实现,他的实现在YOLODataset,而YOLODataset继承自本类BaseDataset
         """Users can custom augmentations here
         like:
             if self.augment:

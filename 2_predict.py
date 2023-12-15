@@ -5,16 +5,18 @@ import os,cv2
 from tqdm import tqdm
 
 # # note:推理视频看效果前，要删除挑选图片模块
-model = YOLO('/home/xnwu/wangyong/Code/Yolov8/runs/detect/yolov8n_train_dataset8_no_fliplr_no_scale_no_rect_no_translate/weights/best.pt') 
-model.predict("/home/xnwu/wangyong/vims/20231122浦东-中环-华夏-龙东-内环/场景理解_视频/高架下/20231122140603596_LGWEF6A75MH250240_0_0_0.mp4_20231124_141252.mp4",imgsz=320,save=False,save_crop=False,device='cuda',vid_stride=20,show=True,conf=0.3)
+model = YOLO('/home/xnwu/wangyong/Code/Yolov8/runs/detect/yolov8n_train_dataset8_new_norect_no_fliplr_no_scale/weights/best.pt') 
+model.predict("/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20231209_1211/2023-12-11-08-12-50.mp4",imgsz=320,save=False,save_crop=False,device='cuda',vid_stride=1,show=True,conf=0.3)
+# /home/xnwu/wangyong/Dataset/test/20230718153007805_LGWEF6A75MH250240_0_0_0.mp4
 # /home/xnwu/wangyong/vims/20231122浦东-中环-华夏-龙东-内环/场景理解_视频/高架下/20231122140603596_LGWEF6A75MH250240_0_0_0.mp4_20231124_141252.mp4
 # 20231122120936821_LGWEF6A75MH250240_0_0_0.mp4_20231124_140946.mp4  强光
 # 20231122140904549_LGWEF6A75MH250240_0_0_0.mp4_20231124_141418.mp4
+#/home/xnwu/wangyong/vims/20231122浦东-中环-华夏-龙东-内环/场景理解_视频/高架下/20231122140603596_LGWEF6A75MH250240_0_0_0.mp4_20231124_141252.mp4
 
 # model = YOLO('/home/xnwu/wangyong/Code/yolov8/runs/detect/yolov8s_train_dataset6/weights/best.pt')
 # video_set_root='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20230823'
-# video_set_root='/home/xnwu/wangyong/vims/20231107/场景理解_视频/晚上/'
-# for video in tqdm(os.listdir(video_set_root)[:]):
+# video_set_root='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20231209_1211/'
+# for video in tqdm(os.listdir(video_set_root)[:]):  #0-174条视频
 #     video_path=os.path.join(video_set_root,video)
 #     model.predict(video_path,imgsz=640,save=False,save_crop=True,device='cuda',vid_stride=20,show=False,conf=0.3)
 

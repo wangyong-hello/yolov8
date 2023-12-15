@@ -330,12 +330,12 @@ class Results(SimpleClass):
         #                     BGR=False)
         
         
-        # tag:重写按条件保存
+        # ## tag:重写按条件保存
         # import cv2,os,shutil
         # from PIL import Image
         # try:
         #     if torch.any(self.boxes.cls==4.) :  #  判断一个数是否在PyTorch张量中,torch.any(tensor == number)
-        #         save_dir_='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/2023_1107_night/2023_1107_night_SLA'
+        #         save_dir_='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20231209_1211/20231209_1211_SLA'
         #         if not os.path.exists(save_dir_):
         #             os.mkdir(save_dir_)  
         #         im=self.orig_img.copy()
@@ -348,7 +348,7 @@ class Results(SimpleClass):
         
         # try:
         #     if torch.any(self.boxes.cls==8.) :  #  判断一个数是否在PyTorch张量中,torch.any(tensor == number)
-        #         save_dir_='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/2023_1107_night/2023_1107_night_MLA'
+        #         save_dir_='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20231209_1211/20231209_1211_MLA'
         #         if not os.path.exists(save_dir_):
         #             os.mkdir(save_dir_)  
         #         im=self.orig_img.copy()
@@ -361,7 +361,7 @@ class Results(SimpleClass):
         
         # try:
         #     if torch.any(self.boxes.cls==10.) :  #  判断一个数是否在PyTorch张量中,torch.any(tensor == number)
-        #         save_dir_='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/2023_1107_night/2023_1107_night_MLR'
+        #         save_dir_='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20231209_1211/20231209_1211_MLR'
         #         if not os.path.exists(save_dir_):
         #             os.mkdir(save_dir_)  
         #         im=self.orig_img.copy()
@@ -375,7 +375,7 @@ class Results(SimpleClass):
 
         # try:
         #     if torch.any(self.boxes.cls==3.) :  #  判断一个数是否在PyTorch张量中,torch.any(tensor == number)
-        #         save_dir_='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/2023_1107_night/2023_1107_night_RA'
+        #         save_dir_='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20231209_1211/20231209_1211_RA'
         #         if not os.path.exists(save_dir_):
         #             os.mkdir(save_dir_)  
         #         im=self.orig_img.copy()
@@ -389,7 +389,7 @@ class Results(SimpleClass):
 
         # try:
         #     if self.boxes.shape[0] == 0  : 
-        #         save_dir_='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/2023_1107_night/2023_1107_night_noObj'
+        #         save_dir_='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20231209_1211/20231209_1211_noObj'
         #         if not os.path.exists(save_dir_):
         #             os.mkdir(save_dir_)  
         #         im=self.orig_img.copy()
@@ -404,7 +404,7 @@ class Results(SimpleClass):
         
         # try:
         #     if torch.any(self.boxes.cls==0.) :  #  判断一个数是否在PyTorch张量中,torch.any(tensor == number)
-        #         save_dir_='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/2023_1107_night/2023_1107_night_LA'
+        #         save_dir_='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20231209_1211/20231209_1211_LA'
         #         if not os.path.exists(save_dir_):
         #             os.mkdir(save_dir_)  
         #         im=self.orig_img.copy()
@@ -418,7 +418,7 @@ class Results(SimpleClass):
         
         # try:
         #     if torch.any(self.boxes.cls==5.) :  #  判断一个数是否在PyTorch张量中,torch.any(tensor == number)
-        #         save_dir_='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/2023_1107_night/2023_1107_night_SRA'
+        #         save_dir_='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20231209_1211/20231209_1211_SRA'
         #         if not os.path.exists(save_dir_):
         #             os.mkdir(save_dir_)  
         #         im=self.orig_img.copy()
@@ -431,7 +431,7 @@ class Results(SimpleClass):
 
         # try:
         #     if len(self.boxes.cls)>0 and (self.boxes.cls == 1.).all().item():    #  判断一个数是否在PyTorch张量中,torch.any(tensor == number)
-        #         save_dir_='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/2023_1107_night/2023_1107_night_onlyPC'
+        #         save_dir_='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20231209_1211/20231209_1211_onlyPC'
         #         if not os.path.exists(save_dir_):
         #             os.mkdir(save_dir_)  
         #         im=self.orig_img.copy()
@@ -445,7 +445,7 @@ class Results(SimpleClass):
         # try:
         #     if ( len(self.boxes.cls)>0 and (self.boxes.cls == 2.).all().item() ) or  \
         #                     ( (torch.any(self.boxes.cls==1.) ) and (torch.any(self.boxes.cls==2.))and (self.boxes.shape[0] ==2) ):
-        #         save_dir_='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/2023_1107_night/2023_1107_night_onlySA'
+        #         save_dir_='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20231209_1211/20231209_1211_onlySA'
         #         if not os.path.exists(save_dir_):
         #             os.mkdir(save_dir_)  
         #         im=self.orig_img.copy()
@@ -458,7 +458,7 @@ class Results(SimpleClass):
         
         # try:
         #     if 1:
-        #         save_dir_='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/2023_1107_night/2023_1107_night_other'
+        #         save_dir_='/media/xnwu/2AC0DAF3C0DAC3EB/Datasets/DVR/data/20231209_1211/20231209_1211_other'
         #         if not os.path.exists(save_dir_):
         #             os.mkdir(save_dir_)  
         #         im=self.orig_img.copy()

@@ -31,8 +31,8 @@ from ultralytics import YOLO
 # model=YOLO('yolov8_p2_cbam.yaml').load('/home/xnwu/wangyong/yolov8/runs/detect/train_on_dataset3/weights/best.pt')
 # model=YOLO('yolov8m.yaml').load('/home/xnwu/wangyong/code/yolov8/runs/detect/train/weights/best.pt')
 # model=YOLO('/home/xnwu/wangyong/code/yolov8/runs/detect/train/weights/best.pt')
-model=YOLO('/home/xnwu/wangyong/Code/Yolov8/official_weights/yolov8n.pt')
-model.train(data='ultralytics/cfg/score_data.yaml',device='cuda',project=None,name='yolov8n_train_dataset8_test',resume=False,epochs=100,imgsz=320,batch=16)#,rect=True,mosaic=1.0,scale=0,,rect=False,fliplr=0.0,scale=0.1,translate=0.0
+model=YOLO('/home/xnwu/wangyong/Code/Yolov8/runs/detect/yolov8n_train_dataset8_new_norect_no_fliplr_no_scale/weights/best.pt')
+model.train(data='ultralytics/cfg/score_data.yaml',resume=False,device='cuda',project=None,name='yolov8n_train_dataset8_test',epochs=100,imgsz=320,batch=8,mosaic=0.0) #,rect=True,mosaic=1.0,scale=0,,rect=False,fliplr=0.0,scale=0.1,translate=0.0
 
 '''
     下列是可传入train参数：   

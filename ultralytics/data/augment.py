@@ -199,6 +199,10 @@ class Mosaic(BaseMixTransform):
             mosaic_labels.append(labels_patch)
         final_labels = self._cat_labels(mosaic_labels)
         final_labels['img'] = img4
+        # cv2.imshow('MOSAIC img', final_labels['img'])  
+        # k = cv2.waitKey(0) & 0xFF
+        # if k == 27: # wait for ESC key to exit   #按esc退出，下一张
+        #     cv2.destroyAllWindows()
         return final_labels
 
     def _mosaic9(self, labels):
@@ -695,9 +699,13 @@ class LetterBox:
         left, right = int(round(dw - 0.1)) if self.center else 0, int(round(dw + 0.1))
         img = cv2.copyMakeBorder(img, top, bottom, left, right, cv2.BORDER_CONSTANT,
                                  value=(114, 114, 114))  # add border
+        # cv2.imshow('precrocess img', img)  
+        # k = cv2.waitKey(100) & 0xFF
+        # if k == 27: # wait for ESC key to exit   #按esc退出，下一张
+        #     cv2.destroyAllWindows()
         if labels.get('ratio_pad'):
             labels['ratio_pad'] = (labels['ratio_pad'], (left, top))  # for evaluation
-
+            
         if len(labels):
             labels = self._update_labels(labels, ratio, dw, dh)
             labels['img'] = img
@@ -950,116 +958,9 @@ def v8_transforms(dataset, imgsz, hyp, stretch=False):
         RandomFlip(direction='vertical', p=hyp.flipud),
         RandomFlip(direction='horizontal', p=hyp.fliplr, flip_idx=flip_idx)])  # transforms
 
-
-# Classification augmentations -----------------------------------------------------------------------------------------
-def classify_transforms(size=224, rect=False, mean=(0.0, 0.0, 0.0), std=(1.0, 1.0, 1.0)):  # IMAGENET_MEAN, IMAGENET_STD
-    """Transforms to apply if albumentations not installed."""
-    if not isinstance(size, int):
-        raise TypeError(f'classify_transforms() size {size} must be integer, not (list, tuple)')
-    transforms = [ClassifyLetterBox(size, auto=True) if rect else CenterCrop(size), ToTensor()]
-    if any(mean) or any(std):
-        transforms.append(T.Normalize(mean, std, inplace=True))
-    return T.Compose(transforms)
-
-
 def hsv2colorjitter(h, s, v):
     """Map HSV (hue, saturation, value) jitter into ColorJitter values (brightness, contrast, saturation, hue)"""
     return v, v, s, h
-
-
-def classify_albumentations(
-        augment=True,
-        size=224,
-        scale=(0.08, 1.0),
-        hflip=0.5,
-        vflip=0.0,
-        hsv_h=0.015,  # image HSV-Hue augmentation (fraction)
-        hsv_s=0.7,  # image HSV-Saturation augmentation (fraction)
-        hsv_v=0.4,  # image HSV-Value augmentation (fraction)
-        mean=(0.0, 0.0, 0.0),  # IMAGENET_MEAN
-        std=(1.0, 1.0, 1.0),  # IMAGENET_STD
-        auto_aug=False,
-):
-    """YOLOv8 classification Albumentations (optional, only used if package is installed)."""
-    prefix = colorstr('albumentations: ')
-    try:
-        import albumentations as A
-        from albumentations.pytorch import ToTensorV2
-
-        check_version(A.__version__, '1.0.3', hard=True)  # version requirement
-        if augment:  # Resize and crop
-            T = [A.RandomResizedCrop(height=size, width=size, scale=scale)]
-            if auto_aug:
-                # TODO: implement AugMix, AutoAug & RandAug in albumentations
-                LOGGER.info(f'{prefix}auto augmentations are currently not supported')
-            else:
-                if hflip > 0:
-                    T += [A.HorizontalFlip(p=hflip)]
-                if vflip > 0:
-                    T += [A.VerticalFlip(p=vflip)]
-                if any((hsv_h, hsv_s, hsv_v)):
-                    T += [A.ColorJitter(*hsv2colorjitter(hsv_h, hsv_s, hsv_v))]  # brightness, contrast, saturation, hue
-        else:  # Use fixed crop for eval set (reproducibility)
-            T = [A.SmallestMaxSize(max_size=size), A.CenterCrop(height=size, width=size)]
-        T += [A.Normalize(mean=mean, std=std), ToTensorV2()]  # Normalize and convert to Tensor
-        LOGGER.info(prefix + ', '.join(f'{x}'.replace('always_apply=False, ', '') for x in T if x.p))
-        return A.Compose(T)
-
-    except ImportError:  # package not installed, skip
-        pass
-    except Exception as e:
-        LOGGER.info(f'{prefix}{e}')
-
-
-class ClassifyLetterBox:
-    """
-    YOLOv8 LetterBox class for image preprocessing, designed to be part of a transformation pipeline, e.g.,
-    T.Compose([LetterBox(size), ToTensor()]).
-
-    Attributes:
-        h (int): Target height of the image.
-        w (int): Target width of the image.
-        auto (bool): If True, automatically solves for short side using stride.
-        stride (int): The stride value, used when 'auto' is True.
-    """
-
-    def __init__(self, size=(640, 640), auto=False, stride=32):
-        """
-        Initializes the ClassifyLetterBox class with a target size, auto-flag, and stride.
-
-        Args:
-            size (Union[int, Tuple[int, int]]): The target dimensions (height, width) for the letterbox.
-            auto (bool): If True, automatically calculates the short side based on stride.
-            stride (int): The stride value, used when 'auto' is True.
-        """
-        super().__init__()
-        self.h, self.w = (size, size) if isinstance(size, int) else size
-        self.auto = auto  # pass max size integer, automatically solve for short side using stride
-        self.stride = stride  # used with auto
-
-    def __call__(self, im):
-        """
-        Resizes the image and pads it with a letterbox method.
-
-        Args:
-            im (numpy.ndarray): The input image as a numpy array of shape HWC.
-
-        Returns:
-            (numpy.ndarray): The letterboxed and resized image as a numpy array.
-        """
-        imh, imw = im.shape[:2]
-        r = min(self.h / imh, self.w / imw)  # ratio of new/old dimensions
-        h, w = round(imh * r), round(imw * r)  # resized image dimensions
-
-        # Calculate padding dimensions
-        hs, ws = (math.ceil(x / self.stride) * self.stride for x in (h, w)) if self.auto else (self.h, self.w)
-        top, left = round((hs - h) / 2 - 0.1), round((ws - w) / 2 - 0.1)
-
-        # Create padded image
-        im_out = np.full((hs, ws, 3), 114, dtype=im.dtype)
-        im_out[top:top + h, left:left + w] = cv2.resize(im, (w, h), interpolation=cv2.INTER_LINEAR)
-        return im_out
-
 
 class CenterCrop:
     """YOLOv8 CenterCrop class for image preprocessing, designed to be part of a transformation pipeline, e.g.,

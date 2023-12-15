@@ -36,7 +36,9 @@ import torch
 
 from ultralytics.cfg import get_cfg, get_save_dir
 from ultralytics.data import load_inference_source
-from ultralytics.data.augment import LetterBox, classify_transforms
+# from ultralytics.data.augment import LetterBox, classify_transforms
+from ultralytics.data.augment import LetterBox
+
 from ultralytics.nn.autobackend import AutoBackend
 from ultralytics.utils import DEFAULT_CFG, LOGGER, MACOS, WINDOWS, callbacks, colorstr, ops
 from ultralytics.utils.checks import check_imgsz, check_imshow
@@ -123,7 +125,7 @@ class BasePredictor:
             im = torch.from_numpy(im)
 
         im = im.to(self.device)
-        im = im.half() if self.model.fp16 else im.float()  # uint8 to fp16/32
+        im = im.half() if self.model.fp16 else im.float()  # uint8 to fp16/32  
         if not_tensor:
             im /= 255  # 0 - 255 to 0.0 - 1.0
         return im
@@ -159,6 +161,7 @@ class BasePredictor:
         """
         same_shapes = all(x.shape == im[0].shape for x in im)
         letterbox = LetterBox(self.imgsz, auto=same_shapes and self.model.pt, stride=self.model.stride)
+        # letterbox = LetterBox(self.imgsz, auto=False, stride=self.model.stride)  #tag:修改不进行矩形推理，使用LetterBox成正方形推理
         return [letterbox(image=x) for x in im]
 
     def write_results(self, idx, results, batch):
@@ -265,9 +268,13 @@ class BasePredictor:
 
             # mark:Preprocess
             with profilers[0]:
-                big_img=im0s
+                # big_img=im0s
                 cut_im0s=self.cutpredict(im0s)  #tag:注释这行关闭cut推理
                 im = self.preprocess(cut_im0s)
+                # cv2.imshow('precrocess img', cut_im0s[0])  
+                # k = cv2.waitKey(100) & 0xFF
+                # if k == 27: # wait for ESC key to exit   #按esc退出，下一张
+                #     cv2.destroyAllWindows()
 
             # mark:Inference
             with profilers[1]:

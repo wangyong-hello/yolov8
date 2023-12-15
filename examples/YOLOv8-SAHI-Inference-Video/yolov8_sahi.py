@@ -94,7 +94,7 @@ def run(weights='yolov8n.pt', source='/home/xnwu/wangyong/Dataset/test/202307181
 def parse_opt():
     """Parse command line arguments."""
     parser = argparse.ArgumentParser()
-    parser.add_argument('--weights', type=str, default='/home/xnwu/wangyong/Code/yolov8/runs/detect/yolov8s_train_dataset6/weights/best.pt', help='initial weights path')
+    parser.add_argument('--weights', type=str, default='/home/xnwu/wangyong/Code/Yolov8/official_weights/yolov8s.pt', help='initial weights path')
     parser.add_argument('--source', type=str, default='/home/xnwu/wangyong/Dataset/test/20230718153007805_LGWEF6A75MH250240_0_0_0.mp4',required=True, help='video file path')
     parser.add_argument('--view-img',default=True, action='store_true', help='show results')
     parser.add_argument('--save-img', default=True,action='store_true', help='save results')
