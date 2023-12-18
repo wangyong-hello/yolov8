@@ -1,7 +1,8 @@
 import argparse
+
 import cv2,os
 import numpy as np
-import onnxruntime
+import onnxruntime as ort
 import random
 import time
 from ultralytics.utils import ASSETS, yaml_load
@@ -203,11 +204,10 @@ class YOLOv8:
     def main(self,input_img):
       
         # Create an inference session using the ONNX model and specify execution providers
-        session = onnxruntime.InferenceSession(self.onnx_model, providers=['CUDAExecutionProvider', 'CPUExecutionProvider']) #创建一个InferenceSession的实例，并将模型的地址传递给该实例
+        session = ort.InferenceSession(self.onnx_model, providers=['CUDAExecutionProvider', 'CPUExecutionProvider'])
 
         # Get the model inputs
-        model_inputs = session.get_inputs()  #从读取的onnx模型中获取model_inputs，由inputnames，输入的形状等构成的
-        
+        model_inputs = session.get_inputs()
 
         # Store the shape of the input for later use
         input_shape = model_inputs[0].shape
@@ -218,7 +218,7 @@ class YOLOv8:
         img_data,crop_img = self.preprocess(input_img)
 
         # Run inference using the preprocessed image data
-        outputs = session.run(None, {model_inputs[0].name: img_data}) #调用实例session的润方法进行推理
+        outputs = session.run(None, {model_inputs[0].name: img_data})
 
         # Perform post-processing on the outputs to obtain output image.
         return self.postprocess(crop_img, outputs)  # output image
@@ -227,8 +227,8 @@ class YOLOv8:
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--model', type=str, default='/home/xnwu/wangyong/Code/Yolov8/runs/detect/yolov8n_train_dataset8_new_norect_no_fliplr_no_scale/weights/best.onnx', help='Input your ONNX model.')
-    parser.add_argument('--mode',type=str,default="video_path")  #image_root,video_apth,video_path
-    parser.add_argument('--source', type=str, default="/home/xnwu/wangyong/vims/数据采集/DVR/20231025/20231025160302553_LGWEF6A75MH250240_0_0_0.mp4", help='Path to input image.')
+    parser.add_argument('--mode',type=str,default="image_root")  #image_root,video_apth,video_path
+    parser.add_argument('--source', type=str, default="/home/xnwu/wangyong/train_on_dataset8/val/images/", help='Path to input image.')
     parser.add_argument('--conf-thres', type=float, default=0.3, help='Confidence threshold')
     parser.add_argument('--iou-thres', type=float, default=0.7, help='NMS IoU threshold')
     args = parser.parse_args()
@@ -236,6 +236,7 @@ if __name__ == '__main__':
     # Check the requirements and select the appropriate backend (CPU or GPU)
     check_requirements('onnxruntime-gpu')
     # check_requirements('onnxruntime-gpu' if torch.cuda.is_available() else 'onnxruntime')
+    # check_requirements
 
     # Create an instance of the YOLOv8 class with the specified arguments
     detection = YOLOv8(args.model, args.conf_thres, args.iou_thres)
@@ -274,15 +275,14 @@ if __name__ == '__main__':
             while True:
                 ret, frame = cap.read()
                 if (ret==True ):
-                    if (frame_id >= 0 and frame_id%20==0):
+                    if (frame_id >= 0 and frame_id%1==0):
                         time1=time.time()
                         output_image = detection.main(frame)
-                        time2=time.time()
                         cv2.imshow('image', output_image)
                         if cv2.waitKey(0) & 0xFF==ord('q'):
                             pass
-                        
-                        print(f'frame ID{frame_id}，推理时间为:{(time2-time1)*1000}ms')
+                        time2=time.time()
+                        print(f'frame ID{frame_id}，推理时间为:{time2}')
                         
                     else:
                         # print('frame ID',frame_id)

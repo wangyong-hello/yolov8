@@ -323,7 +323,7 @@ class Exporter:
         f = str(self.file.with_suffix('.onnx'))
 
         # output_names = ['output0', 'output1'] if isinstance(self.model, SegmentationModel) else ['output0']
-        output_names =  ['output0']
+        output_names =  ['output0']  #tag:exportonnx
         dynamic = self.args.dynamic
         if dynamic:
             dynamic = {'images': {0: 'batch', 2: 'height', 3: 'width'}}  # shape(1,3,640,640)
@@ -338,10 +338,10 @@ class Exporter:
             self.model.cpu() if dynamic else self.model,  # dynamic=True only compatible with cpu
             self.im.cpu() if dynamic else self.im,
             f,
-            verbose=False,
+            verbose=False,  #是否打印模型转换信息。default=False。
             opset_version=opset_version,
             do_constant_folding=True,  # WARNING: DNN inference with torch>=1.12 may require do_constant_folding=False
-            input_names=['images'],
+            input_names=['images'],   
             output_names=output_names,
             dynamic_axes=dynamic or None)
 
