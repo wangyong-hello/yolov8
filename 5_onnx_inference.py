@@ -110,7 +110,8 @@ class YOLOv8:
         y_min = int(h_t_ratio * self.img_height )
         x_max = int(self.img_width -  wid_r_ratio * self.img_width )
         y_max = int(self.img_height - h_bot_ratio * self.img_height )
-        crop_img=self.input_img[y_min:y_max, x_min:x_max]
+        crop_img=self.input_img[y_min:y_max, x_min:x_max]     
+        # crop_img=self.input_img             #tag:   no_Crop_show
         # cv2.imshow('precrocess img', crop_img)  
         # k = cv2.waitKey(100) & 0xFF
         # if k == 27: # wait for ESC key to exit   #按esc退出，下一张
@@ -226,9 +227,23 @@ class YOLOv8:
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--model', type=str, default='/home/xnwu/wangyong/Code/Yolov8/runs/detect/yolov8n_train_dataset8_new_norect_no_fliplr_no_scale/weights/best.onnx', help='Input your ONNX model.')
-    parser.add_argument('--mode',type=str,default="video_path")  #image_root,video_apth,video_path
-    parser.add_argument('--source', type=str, default="/home/xnwu/wangyong/vims/数据采集/DVR/20231025/20231025160302553_LGWEF6A75MH250240_0_0_0.mp4", help='Path to input image.')
+    # /home/xnwu/wangyong/Code/Yolov8/runs/detect/yolov8n_train_dataset9_val3_norect_no_fliplr_no_scale_crop/weights/best.onnx
+    #/home/xnwu/wangyong/Code/Yolov8/runs/detect/yolov8n_train_dataset8_new_norect_no_fliplr_no_scale/weights/best.onnx
+    
+    parser.add_argument('--model', type=str, default='/home/xnwu/wangyong/Code/Yolov8/runs/detect/yolov8n_train_dataset9_val3_norect_no_fliplr_no_scale_crop/weights/best.onnx', help='Input your ONNX model.')
+    parser.add_argument('--mode',type=str,default="video_path")  #image_root,video_path,video_path
+    parser.add_argument('--source', type=str, default="/home/xnwu/wangyong/vims/数据采集/DVR/行车记录仪dingdingpai/20201222/20201222223109_0060.mp4", help='Path to input image.')
+    
+    #/home/xnwu/wangyong/vims/数据采集/DVR/20231122浦东-中环-华夏-龙东-内环/20231122140603596_LGWEF6A75MH250240_0_0_0.mp4  白天  
+    #/home/xnwu/wangyong/vims/数据采集/DVR/20231122浦东-中环-华夏-龙东-内环/20231122151504803_LGWEF6A75MH250240_0_0_0.mp4  白天  
+    
+    # /home/xnwu/wangyong/vims/数据采集/DVR/行车记录仪dingdingpai/20201222/20201222221609_0060.mp4  夜晚
+    # /home/xnwu/wangyong/vims/数据采集/DVR/行车记录仪dingdingpai/20201222/20201222223109_0060.mp4  夜晚
+        
+    # /home/xnwu/wangyong/vims/数据采集/DVR/行车记录仪dingdingpai/20201221/20201221084423_0060.mp4
+    #/home/xnwu/wangyong/vims/数据采集/DVR/行车记录仪dingdingpai/20201221/20201221084023_0060.mp4
+    # /home/xnwu/wangyong/vims/数据采集/DVR/20231122浦东-中环-华夏-龙东-内环/20231122140603596_LGWEF6A75MH250240_0_0_0.mp4
+    # /home/xnwu/wangyong/Dataset/add_train_on_dataset8_1_voc/val2/images/
     parser.add_argument('--conf-thres', type=float, default=0.3, help='Confidence threshold')
     parser.add_argument('--iou-thres', type=float, default=0.7, help='NMS IoU threshold')
     args = parser.parse_args()
@@ -244,7 +259,7 @@ if __name__ == '__main__':
     if args.mode == "image_root":
         import glob
         img_paths=glob.glob(args.source+'/*.jpg') 
-        for img_path in  random.sample(img_paths, len(img_paths)):    #遍历打乱顺序的img_paths
+        for img_path in  random.sample(img_paths, len(img_paths)):    #tag:遍历打乱顺序的img_paths
             suffixStr = img_path.split(".")[-1]
             if(suffixStr == "jpg" or suffixStr == "png" or suffixStr == "JPG" or suffixStr == "PMG" or suffixStr == "bmp" or suffixStr == "jpeg"):
                 original_image: np.ndarray = cv2.imread(img_path)
@@ -281,7 +296,6 @@ if __name__ == '__main__':
                         cv2.imshow('image', output_image)
                         if cv2.waitKey(0) & 0xFF==ord('q'):
                             pass
-                        
                         print(f'frame ID{frame_id}，推理时间为:{(time2-time1)*1000}ms')
                         
                     else:

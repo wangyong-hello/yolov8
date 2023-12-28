@@ -23,7 +23,7 @@ from ultralytics import YOLO
 ### 预测 yolo task=detect mode=predict model=/root/YOLOv8-main/runs/detect/train9/weights/best.pt conf=0.25 source=/root/YOLOv8-main/rode_face_test/images    
 
 ## note:仅放入权重也可以构建网络并导入权重，不需要先构建网络再导入权重后进行预训练
-# model = YOLO('/home/xnwu/wangyong/Code/Yolov8/official_weights/yolov8n.pt')  # build a new model from YAML   
+model = YOLO('/home/xnwu/wangyong/Code/Yolov8/official_weights/yolov8n.pt')  # build a new model from YAML   
 # # model = YOLO('runs/detect/train_on_dataset1/weights/best.pt')  # load a pretrained model (recommended for training)#'
 # # model = model.load('/home/xnwu/wangyong/yolov8/runs/detect/train_on_dataset2/weights/best.pt')
 # 
@@ -31,8 +31,8 @@ from ultralytics import YOLO
 # model=YOLO('yolov8_p2_cbam.yaml').load('/home/xnwu/wangyong/yolov8/runs/detect/train_on_dataset3/weights/best.pt')
 # model=YOLO('yolov8m.yaml').load('/home/xnwu/wangyong/code/yolov8/runs/detect/train/weights/best.pt')
 # model=YOLO('/home/xnwu/wangyong/code/yolov8/runs/detect/train/weights/best.pt')
-model=YOLO('/home/xnwu/wangyong/Code/Yolov8/runs/detect/yolov8n_train_dataset8_new_norect_no_fliplr_no_scale/weights/best.pt')
-model.train(data='ultralytics/cfg/score_data.yaml',resume=False,device='cuda',project=None,name='yolov8n_train_dataset8_test',epochs=100,imgsz=320,batch=8,mosaic=0.0) #,rect=True,mosaic=1.0,scale=0,,rect=False,fliplr=0.0,scale=0.1,translate=0.0
+# model=YOLO('/home/xnwu/wangyong/Code/Yolov8/runs/detect/yolov8n_train_dataset8_new_norect_no_fliplr_no_scale/weights/best.pt')
+model.train(data='ultralytics/cfg/score_data.yaml',resume=False,device='cuda',project=None,name='yolov8n_train_dataset9_val2_norect_no_fliplr_no_scale_crop',epochs=100,imgsz=320,batch=16,rect=False,fliplr=0.0,translate=0.0,scale=0) #,rect=True,mosaic=1.0,scale=0,,rect=False,fliplr=0.0,scale=0.1,translate=0.0
 
 '''
     下列是可传入train参数：   
