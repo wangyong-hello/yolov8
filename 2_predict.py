@@ -78,6 +78,12 @@ model.predict("/home/xnwu/wangyong/Dataset/train_on_dataset9_new_crop_side/val2/
         
         
         参阅：https://zhuanlan.zhihu.com/p/665949863
-    
+2. 将保存的predict的txt和图片保存在一起
+在Result.py 下的save_txt函数下：
+if texts:
+            dir_path,_=os.path.split(self.path)
+            txt_file =  txt_file.split('\\')[-1]
+            txt_file= os.path.join(dir_path,txt_file)
+
     
 '''
